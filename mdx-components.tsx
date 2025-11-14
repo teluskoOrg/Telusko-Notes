@@ -4,6 +4,7 @@ import { Accordion, Accordions} from 'fumadocs-ui/components/accordion';
 import { File,Folder } from 'fumadocs-ui/components/files';
 import { Card, Cards } from 'fumadocs-ui/components/card';
 // import { House } from 'lucide-react';
+import Video from './components/ui/Video';
 
 export function getMDXComponents(components?: MDXComponents): MDXComponents {
   return {
@@ -14,6 +15,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     Folder,
     Card,
     Cards,
+    Video,
     ...components,
   };
 }

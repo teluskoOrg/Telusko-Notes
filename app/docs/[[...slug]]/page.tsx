@@ -26,6 +26,8 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 
    const markdownUrl = `/api/docs/${params.slug?.join('/') || 'index'}/raw`;
 
+   console.log(params.slug,'params slug')
+
   return (
     <DocsPage toc={page.data.toc} full={page.data.full} lastUpdate={lastModified ? new Date(lastModified) : undefined} tableOfContent={{
         style: 'clerk',

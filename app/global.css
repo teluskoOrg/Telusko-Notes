@@ -35,10 +35,17 @@ aside button:hover {
 .dark aside a[data-active="false"]:hover,
 .dark aside a.w-full:hover,
 .dark aside button:hover {
-  background-color: hsl(220, 80%, 15%) !important;
-  color: hsl(220, 90%, 70%) !important;
+  background-color: rgba(94, 207, 128, .05) !important;
+  color: white !important;
 }
 
+
+:root {
+  --color-fd-background: #FAF9F5;
+}
+.dark {
+  --color-fd-background: #010101;
+}
 
 /* --------------------------------------------------------------- */
 

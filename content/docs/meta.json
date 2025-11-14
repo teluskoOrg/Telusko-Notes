@@ -3,9 +3,9 @@
     "pages":[
         "index.mdx",
         "---Python---",
-        "Intoduction To Python",
+        "Intoduction-To-Python",
         "OOPS in Python",
         "---Java---",
-        "Introduction To Java"
+        "Introduction-To-Java"
     ]
 }

@@ -47,7 +47,6 @@ export function Feedback({
   const [message, setMessage] = useState('');
   const [isPending, startTransition] = useTransition();
 
-  console.log(url, 'pathname')
   useEffect(() => {
     const item = localStorage.getItem(`docs-feedback-${url}`);
 
