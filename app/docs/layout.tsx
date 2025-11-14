@@ -8,6 +8,7 @@ export default function Layout({ children }: LayoutProps<'/docs'>) {
     enabled: true,
     tabs:false,
     defaultOpenLevel:1
+    
     // replace the default sidebar
     // component:
   }}>

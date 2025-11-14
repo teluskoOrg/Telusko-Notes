@@ -1,10 +1,9 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 
 interface VideoProps {
-  id: string;
+  id: string; 
   title?: string;
 }
 
@@ -15,7 +14,7 @@ export default function Video({ id, title = "Video" }: VideoProps) {
   const embedUrl = `https://www.youtube.com/embed/${id}?autoplay=1`;
 
   return (
-    <div className="w-3xl mx-auto">
+    <div className="w-full mx-auto"> {/* 80% width, centered */}
       <div className="relative w-full pb-[56.25%] overflow-hidden rounded-xl shadow-lg">
         {isPlaying ? (
           <iframe
@@ -31,11 +30,10 @@ export default function Video({ id, title = "Video" }: VideoProps) {
             className="absolute top-0 left-0 w-full h-full flex items-center justify-center"
             onClick={() => setIsPlaying(true)}
           >
-            <Image
+            <img
               src={thumbnail}
               alt={title}
-              fill
-              className="object-cover"
+              className="absolute top-0 left-0 w-full h-full object-cover"
             />
             <div className="relative z-10 bg-black/60 rounded-full p-4 text-white text-2xl">
               ▶

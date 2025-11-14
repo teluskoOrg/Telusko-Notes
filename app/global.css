@@ -35,7 +35,7 @@ aside button:hover {
 .dark aside a[data-active="false"]:hover,
 .dark aside a.w-full:hover,
 .dark aside button:hover {
-  background-color: rgba(94, 207, 128, .05) !important;
+  background-color: hsl(220, 80%, 45%, 20%) !important;
   color: white !important;
 }
 
@@ -56,6 +56,7 @@ aside button:hover {
 div.border-s a[data-active="true"] {
   color: hsl(220, 90%, 56%) !important;
 }
+
 
 /* TOC link - Hover state (Light mode) */
 div.border-s a[data-active="false"]:hover {
