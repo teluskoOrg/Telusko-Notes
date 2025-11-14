@@ -16,12 +16,15 @@ import { onRateAction,owner, repo } from '@/lib/github';
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
   const page = source.getPage(params.slug);
-  console.log(page)
+  // console.log(page, "full page data")
+  
   if (!page) notFound();
 
   const MDX = page.data.body;
 
   const {lastModified} = page.data;
+
+   const markdownUrl = `/api/docs/${params.slug?.join('/') || 'index'}/raw`;
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full} lastUpdate={lastModified ? new Date(lastModified) : undefined} tableOfContent={{
@@ -35,9 +38,9 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription>{page.data.description}</DocsDescription>
        <div className="flex flex-row gap-2 items-center border-b pb-6">
-        <LLMCopyButton markdownUrl={`${page.url}.mdx`} />
+        <LLMCopyButton markdownUrl={markdownUrl} />
         <ViewOptions
-          markdownUrl={`${page.url}.mdx`}
+          markdownUrl={markdownUrl}
           githubUrl={`https://github.com/${owner}/${repo}/blob/dev/apps/docs/content/docs/${page.path}`}
         />
       </div>

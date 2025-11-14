@@ -10,13 +10,17 @@ let instance: Octokit | undefined;
 async function getOctokit(): Promise<Octokit> {
   if (instance) return instance;
   const appId = process.env.GITHUB_APP_ID;
-  const privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
+  let privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
+
+  console.log(appId, privateKey, "checking env variables")
 
   if (!appId || !privateKey) {
     throw new Error(
       'No GitHub keys provided for Github app, docs feedback feature will not work.',
     );
   }
+
+    privateKey = privateKey.replace(/\\n/g, '\n');
  
   const app = new App({
     appId,

@@ -42,6 +42,8 @@ export function LLMCopyButton({
             cache.set(markdownUrl, content);
 
             return content;
+          }).catch((error)=>{
+            console.log(error)
           }),
         }),
       ]);

@@ -47,6 +47,7 @@ export function Feedback({
   const [message, setMessage] = useState('');
   const [isPending, startTransition] = useTransition();
 
+  console.log(url, 'pathname')
   useEffect(() => {
     const item = localStorage.getItem(`docs-feedback-${url}`);
 
@@ -64,19 +65,27 @@ export function Feedback({
   function submit(e?: SyntheticEvent) {
     if (opinion == null) return;
 
+    console.log(opinion,'opinion')
+
     startTransition(async () => {
       const feedback: Feedback = {
         opinion,
         message,
       };
 
+      console.log(feedback,'feedback')
+
       void onRateAction(url, feedback).then((response) => {
+        console.log(response,'feedback response')
         setPrevious({
           response,
           ...feedback,
         });
+
         setMessage('');
         setOpinion(null);
+      }).catch((error)=>{
+        console.log(error)
       });
     });
 
