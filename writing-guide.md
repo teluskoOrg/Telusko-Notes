@@ -1,4 +1,4 @@
-# Writing Documentation with Fumadocs
+# Writing Documentation 
 
 This guide will walk you through **how to write documentation in Fumadocs**, including:
 
@@ -9,7 +9,118 @@ This guide will walk you through **how to write documentation in Fumadocs**, inc
 
 ---
 
-# 📁 Folder Structure
+
+# Markdown Basics 
+
+---
+
+## Headings
+
+Use `#` to `######` for headings:
+
+```md
+# H1
+## H2
+### H3
+#### H4
+```
+
+---
+
+## Ordered & Unordered Lists
+
+### Unordered list
+
+```md
+- Item one
+- Item two
+  - Nested item
+```
+
+### Ordered list
+
+```md
+1. First
+2. Second
+3. Third
+```
+
+---
+
+## Bold, Italics, Strikethrough
+
+```md
+**Bold text**
+*Italic text*
+~~Strikethrough~~
+```
+
+---
+
+## Links
+
+```md
+[Open Google](https://google.com)
+```
+
+---
+
+## Markdown Images (works but use <MyImage /> preferred)
+
+```md
+![Alt text](/images/picture.png)
+```
+
+---
+
+## Blockquotes
+
+```md
+> This is a quote.
+```
+
+---
+
+## Horizontal Rule
+
+```md
+---
+```
+
+---
+
+## Inline Code & Code Blocks
+
+### Inline code
+
+```md
+Use `print()` to output text.
+```
+
+### Code block
+
+````md
+```python
+print("Hello World")
+```
+````
+
+---
+
+## Tables
+
+```md
+| Name | Language |
+|------|----------|
+| Python | Easy |
+| Java | Powerful |
+```
+
+
+---
+
+
+# Folder Structure
 
 Fumadocs uses a `meta.json` file **inside each folder** to define the navigation order and grouping for that folder.
 
@@ -29,7 +140,7 @@ Example configuration:
 }
 ```
 
-### 🧩 Meaning
+### Meaning
 
 * Strings starting with `---` create **section headings** in the sidebar.
 * File names WITHOUT extension refer to `.mdx` files.
@@ -48,7 +159,7 @@ Example sidebar:
 
 ---
 
-# ✍️ Writing MDX Files in Fumadocs
+# Writing MDX Files in Fumadocs
 
 Fumadocs supports plain Markdown plus custom React components.
 
@@ -73,7 +184,7 @@ You can insert components directly:
 
 ---
 
-# 🎥 Video Component
+# Video Component
 
 Use the `<Video />` component to embed videos.
 
@@ -87,7 +198,7 @@ This renders an embedded YouTube player.
 
 ---
 
-# 🖼 Image Component
+# Image Component
 
 Your custom `<MyImage />` component supports relative paths.
 
@@ -105,14 +216,14 @@ public/images/cpu.png
 
 ---
 
-# 📦 Built‑in Fumadocs MDX Components
+# Built‑in Fumadocs MDX Components
 
 Fumadocs includes many reusable UI components.
 Below is a guide for each.
 
 ---
 
-## 🪜 Steps & Step
+## Steps & Step
 
 Use `Steps` to create multi‑step walkthroughs.
 
@@ -131,7 +242,7 @@ Use `Steps` to create multi‑step walkthroughs.
 
 ---
 
-## 📁 File & Folder
+## File & Folder
 
 Useful for showing folder structures.
 
@@ -144,7 +255,7 @@ Useful for showing folder structures.
 
 ---
 
-## 📚 Card & Cards
+## Card & Cards
 
 Use cards to show grouped information.
 
@@ -161,7 +272,72 @@ Use cards to show grouped information.
 
 ---
 
-## 📂 Accordion & Accordions
+
+# Tabs & Tab (If installed)
+
+Tabbed content.
+
+```mdx
+<Tabs>
+  <Tab title="Python">
+    print("Hello Python")
+  </Tab>
+  <Tab title="JavaScript">
+    console.log("Hello JS");
+  </Tab>
+</Tabs>
+```
+
+---
+
+# Callout / Alert (If available)
+
+Used for important notices.
+
+```mdx
+<Callout type="warning">
+  Do not delete system files.
+</Callout>
+```
+
+Sometimes called `<Alert />` depending on version.
+
+---
+
+# Badge / Tag (If available)
+
+For labeling versions or statuses.
+
+```mdx
+<Badge color="green">Stable</Badge>
+```
+
+---
+
+# CodeGroup / Code (For multi‑language code examples)
+
+```mdx
+<CodeGroup>
+  <Code lang="js">console.log("JS")</Code>
+  <Code lang="py">print("Python")</Code>
+</CodeGroup>
+```
+
+---
+
+# Quote
+
+Stylized blockquote.
+
+```mdx
+<Quote>
+  Programming is thinking, not typing.
+</Quote>
+```
+
+---
+
+## Accordion & Accordions
 
 Good for FAQs or collapsible content.
 
@@ -178,20 +354,19 @@ Good for FAQs or collapsible content.
 
 ---
 
-# 🧱 Code Blocks with Titles
+# Code Blocks with Titles
 
 Fumadocs allows titles on code blocks:
 
 ````mdx
 ```javascript title="Example: Logging"
 console.log("Hello World");
-````
-
+```
 ````
 
 ---
 
-# 📌 Recommended MDX Template
+# Recommended MDX Template
 
 ```mdx
 ---
@@ -221,33 +396,4 @@ Welcome to Python!
     Learn more advanced topics.
   </Card>
 </Cards>
-````
-
----
-
-# 🎯 Best Practices
-
-* Keep MDX files small and focused.
-* Use components to avoid long plain text blocks.
-* Use images and videos to enhance understanding.
-* Use Steps for tutorials.
-* Use Cards for content grouping.
-* Use Accordion for FAQs.
-
----
-
-# 🎉 Conclusion
-
-You now know how to:
-
-* Structure docs in Fumadocs
-* Write MDX with components
-* Use `<Video />`, `<MyImage />`, and all Fumadocs UI elements
-
-If you'd like, I can create:
-
-* Templates for Python / Java lessons
-* A full documentation system for your project
-* Sidebar + layouts setup
-
-Just tell me!
+```
