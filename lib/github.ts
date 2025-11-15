@@ -8,84 +8,85 @@ export const DocsCategory = 'Docs Feedback';
 let instance: Octokit | undefined;
 
 
-async function getOctokit(): Promise<Octokit> {
-  if (instance) return instance;
-
-  const appId = process.env.GITHUB_APP_ID;
-
-  let privateKey: string | undefined;
-
-  // PRODUCTION: decode base64
-  if (process.env.GITHUB_APP_PRIVATE_KEY_BASE64) {
-    privateKey = Buffer.from(
-      process.env.GITHUB_APP_PRIVATE_KEY_BASE64,
-      "base64"
-    ).toString("utf8");
-  }
-
-  // LOCAL: load regular PEM with escaped \n
-  else if (process.env.GITHUB_APP_PRIVATE_KEY) {
-    privateKey = process.env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, "\n");
-  }
-
-  if (!appId || !privateKey) {
-    throw new Error("Missing GitHub App credentials");
-  }
-
-  const app = new App({
-    appId,
-    privateKey,
-  });
-
-  const { data } = await app.octokit.request(
-    "GET /repos/{owner}/{repo}/installation",
-    {
-      owner,
-      repo,
-      headers: {
-        "X-GitHub-Api-Version": "2022-11-28",
-      },
-    }
-  );
-
-  instance = await app.getInstallationOctokit(data.id);
-  return instance;
-}
-
-
 // async function getOctokit(): Promise<Octokit> {
 //   if (instance) return instance;
+
 //   const appId = process.env.GITHUB_APP_ID;
-//   let privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
 
+//   let privateKey: string | undefined;
 
-//   if (!appId || !privateKey) {
-//     throw new Error(
-//       'No GitHub keys provided for Github app, docs feedback feature will not work.',
-//     );
+//   // PRODUCTION: decode base64
+//   if (process.env.GITHUB_APP_PRIVATE_KEY_BASE64) {
+//     privateKey = Buffer.from(
+//       process.env.GITHUB_APP_PRIVATE_KEY_BASE64,
+//       "base64"
+//     ).toString("utf8");
 //   }
 
-//     privateKey = privateKey.replace(/\\n/g, '\n');
- 
+//   // LOCAL: load regular PEM with escaped \n
+//   else if (process.env.GITHUB_APP_PRIVATE_KEY) {
+//     privateKey = process.env.GITHUB_APP_PRIVATE_KEY.replace(/\\n/g, "\n");
+//   }
+
+//   if (!appId || !privateKey) {
+//     throw new Error("Missing GitHub App credentials");
+//   }
+
 //   const app = new App({
 //     appId,
 //     privateKey,
 //   });
 
 //   const { data } = await app.octokit.request(
-//     'GET /repos/{owner}/{repo}/installation',
+//     "GET /repos/{owner}/{repo}/installation",
 //     {
 //       owner,
 //       repo,
 //       headers: {
-//         'X-GitHub-Api-Version': '2022-11-28',
+//         "X-GitHub-Api-Version": "2022-11-28",
 //       },
-//     },
+//     }
 //   );
 
 //   instance = await app.getInstallationOctokit(data.id);
 //   return instance;
 // }
+
+
+async function getOctokit(): Promise<Octokit> {
+  if (instance) return instance;
+  const appId = process.env.GITHUB_APP_ID;
+  let privateKey = process.env.GITHUB_APP_PRIVATE_KEY;
+
+
+  if (!appId || !privateKey) {
+    throw new Error(
+      'No GitHub keys provided for Github app, docs feedback feature will not work.',
+    );
+  }
+
+    privateKey = privateKey.replace(/\\n/g, '\n');
+ 
+  const app = new App({
+    appId,
+    privateKey,
+  });
+
+  const { data } = await app.octokit.request(
+    'GET /repos/{owner}/{repo}/installation',
+    {
+      owner,
+      repo,
+      headers: {
+        'X-GitHub-Api-Version': '2022-11-28',
+      },
+    },
+  );
+
+  instance = await app.getInstallationOctokit(data.id);
+  console.log(data);
+  return instance;
+}
 
 interface RepositoryInfo {
   id: string;
