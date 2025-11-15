@@ -1,8 +1,7 @@
 {
-    "root":false,
     "pages":[
-        "welcome.mdx",
-        "Basics-Of-Python",
-        "Control-Flow-And-Looping"
+        "getting-started.mdx",
+        "installation.mdx",
+        "Basics-of-Python"
     ]
 }

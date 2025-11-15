@@ -1,7 +1,6 @@
 {
-    "root":false,
     "pages":[
-        "Welcome.mdx",
-        "Hello-Java"
+        "getting-started.mdx",
+        "jdk-setup.mdx"
     ]
 }

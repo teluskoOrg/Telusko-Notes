@@ -1,274 +1,169 @@
 ---
 title: Welcome
-description: Getting Started with Fumadocs
+description: Telusko Docs - Your comprehensive guide to learning technology
 icon: House
 ---
 
+import { CodeXml, Globe, Database, Cloud, MonitorCog, Library, GraduationCap, ExternalLink } from 'lucide-react'
+
 ## Introduction
 
-Fumadocs <span className='text-fd-muted-foreground text-sm'>(Foo-ma docs)</span> is a **documentation framework**, designed to be fast, flexible,
-and composes seamlessly into your React framework.
+Welcome to **Telusko Docs** - your go-to resource for mastering programming languages, frameworks, and cutting-edge technologies. Whether you're a beginner taking your first steps in coding or an experienced developer expanding your skill set, our documentation provides clear, practical guidance to accelerate your learning journey.
 
-Fumadocs has different parts:
-
-<Cards>
-
-
-
-
-
-
-
-
-
-</Cards>
-
-<Callout title="Want to learn more?">
-  Read our in-depth [What is Fumadocs](/docs/ui/what-is-fumadocs) introduction.
+<Callout title="Learn by Doing" type="info">
+  Telusko believes in practical, hands-on learning. Our documentation complements our courses with real-world examples, best practices, and in-depth technical guides.
 </Callout>
 
-### Terminology
+## What You'll Find Here
 
-**Markdown/MDX:** Markdown is a markup language for creating formatted text. Fumadocs natively supports Markdown and MDX (superset of Markdown).
+<Cards>
+  <Card 
+    title="Programming Languages" 
+    description="Master Java, Python, JavaScript, C++, and more with comprehensive guides" 
+    icon={<CodeXml />}
+  />
+  <Card 
+    title="Web Development"
+    description="Build modern web applications with HTML, CSS, React, Node.js, and frameworks"
+    icon={<Globe />}
+  />
+  <Card 
+    title="Databases & Data"
+    description="Learn SQL, MongoDB, data structures, and database design principles"
+    icon={<Database />}
+  />
+  <Card 
+    title="DevOps & Cloud"
+    description="Explore Docker, Kubernetes, AWS, CI/CD pipelines, and deployment strategies"
+    icon={<Cloud />}
+  />
+  <Card 
+    title="System Design"
+    description="Create Android and iOS applications with native and cross-platform tools"
+    icon={<MonitorCog />}
+  />
+  <Card 
+    title="Frameworks & Libraries"
+    description="Step-by-step guides to build real-world applications from scratch"
+    icon={<Library />}
+  />
+</Cards>
 
-**[Bun](https://bun.sh):** A JavaScript runtime, we use it for running scripts.
+## Getting Started
 
-Some basic knowledge of React.js would be useful for further customisations.
+### New to Programming?
 
-## Automatic Installation
+If you're just starting your coding journey, we recommend beginning with these foundational topics:
 
-A minimum version of Node.js 20 required.
+1. **Programming Fundamentals** - Learn core concepts like variables, loops, and functions
+2. **Choose Your First Language** - Start with [Python](/docs/Intoduction-To-Python/welcome) or [java](docs/Introduction-To-Java/Welcome) for a solid foundation
+3. **Build Your First Project** - Apply what you've learned with guided tutorials
 
-```bash tab="npm"
-npm create fumadocs-app
-```
-
-```bash tab="pnpm"
-pnpm create fumadocs-app
-```
-
-```bash tab="yarn"
-yarn create fumadocs-app
-```
-
-```bash tab="bun"
-bun create fumadocs-app
-```
-
-It will ask you the built-in template to use:
-
-
-
-```javascript title="main.js"
-  console.log('js');
-```
-
-- **React.js framework**: Next.js, Waku, React Router, Tanstack Start.
-- **Content source**: Fumadocs MDX.
-
-A new fumadocs app should be initialized. Now you can start hacking!
-
-<Callout title='From Existing Codebase?'>
-
-    You can follow the [Manual Installation](/docs) guide to get started.
-
+<Callout title="Quick Start Guide" type="tip">
+  Check out our [AlienCoach](https://aliencoach.com/) platform to create a personalized learning course based on your goals.
 </Callout>
 
-### Enjoy!
 
-Create your first MDX file in the docs folder.
 
-```mdx title="content/docs/index.mdx"
----
-title: Hello World
----
+## Popular Topics
 
-## Yo what's up
-```
-
-Run the app in development mode and see http://localhost:3000/docs.
-
-```npm
-npm run dev
-```
-
-## FAQ
-
-Some common questions you may encounter.
+Explore our most visited documentation sections:
 
 <Accordions>
-  <Accordion id='upgrade-fumadocs' title="Getting error with missing APIs or bugs?">
-    Make sure to upgrade Fumadocs when you've encountered any problems or trying out new features:
-
-    ```bash title="pnpm"
-    pnpm update -i -r --latest
-    ```
-
+  <Accordion id="java-docs" title="Java Development">
+    Complete Java documentation covering core concepts, Spring Boot, microservices, and enterprise development patterns. Perfect for building scalable backend applications.
   </Accordion>
-
-  <Accordion id='change-base-url' title="How to change the base route of docs?">
-
-    Routing is handled by your React framework, you need to change the routing structure first.
-
-    For example, in Next.js, rename the route (`/docs/*` -> `/info/*`):
-
-    <File>
-      <Folder name="app/docs" defaultOpen className="opacity-50" disabled>
-        <File name="layout.tsx" />
-      </Folder>
-      <Folder name="app/info" defaultOpen>
-        <File name="layout.tsx" />
-      </Folder>
-    </File>
-
-    Or rename from `/docs/*` to `/*` using a route group:
-
-    <File>
-      <Folder name="app/(docs)" defaultOpen>
-        <File name="layout.tsx" />
-      </Folder>
-    </File>
-
-    Finally, update the base URL of pages in `source.ts`:
-
-```ts title="lib/source.ts"
-import { loader } from 'fumadocs-core/source';
-
-export const source = loader({
-  baseUrl: '/info', // to the new value [!code highlight]
-});
-```
-
+  
+  <Accordion id="python-docs" title="Python Programming">
+    From basics to advanced topics including Django, Flask, data science libraries, automation scripts, and machine learning fundamentals.
   </Accordion>
-
-    <Accordion id='multi-docs' title="How to implement multi-docs?">
-        We recommend to use [Sidebar Tabs](/docs/ui/navigation/sidebar#sidebar-tabs).
-    </Accordion>
-
-</Accordions>
-
-### For Vite
-
-<Accordions>
-  <Accordion id='vite-context-error' title="Getting error with React contexts?">
-
-There's some weird pre-bundling problems with Vite: [#3910](https://github.com/vitejs/vite/issues/3910).
-Make sure to exclude Fumadocs from pre-bundling and add it to `noExternal`:
-
-```ts title="vite.config.ts"
-import { defineConfig } from 'vite';
-
-// add other Fumadocs deps as needed
-const FumadocsDeps = ['fumadocs-core', 'fumadocs-ui'];
-
-export default defineConfig({
-  resolve: {
-    noExternal: FumadocsDeps,
-  },
-  optimizeDeps: {
-    exclude: FumadocsDeps,
-  },
-});
-```
-
+  
+  <Accordion id="web-docs" title="DevOps">
+     Explore Docker, Kubernetes, AWS, CI/CD pipelines, deployment strategies, and infrastructure automation for modern software delivery.
+  </Accordion>
+  
+  <Accordion id="dsa-docs" title="JavaScript">
+    Master JavaScript fundamentals, ES6+ features, asynchronous programming, DOM manipulation, and modern JavaScript development practices.
   </Accordion>
 </Accordions>
 
-### For Next.js
+## Documentation Features
 
-<Accordions>
-  <Accordion id='node-23' title="Getting error on production build?">
+### What Makes Telusko Docs Special
 
-    Node.js 23.1 might have problems with Next.js, see [#1021](https://github.com/fuma-nama/fumadocs/issues/1021). Make sure to change your Node.js version.
+- **Clear Explanations** - Complex concepts broken down into digestible sections
+- **Practical Examples** - Every concept includes working code examples
+- **Goal-Oriented** - Learn what you need to build real projects
+- **Regularly Updated** - Stay current with the latest tech trends and updates
+- **Community Driven** - Contributions and feedback from learners worldwide
 
-  </Accordion>
-  <Accordion id='dynamic-route' title="It uses Dynamic Route, will it be poor in performance?">
+### Code Examples
 
-    Next.js turns dynamic route into static routes when `generateStaticParams` is configured.
-    Hence, it is as fast as static pages.
+All documentation includes syntax-highlighted code snippets you can copy and run:
 
-    You can [enable Static Exports](/docs/ui/static-export) on Next.js to get a static build output.
+```java title="HelloWorld.java"
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Welcome to Telusko Docs!");
+    }
+}
+```
 
-  </Accordion>
-  <Accordion id='custom-layout-docs-page' title='How to create a page in /docs without docs layout?'>
+```python title="hello.py"
+def greet(name):
+    return f"Welcome to Telusko Docs, {name}!"
 
-    Same as managing layouts in Next.js App Router, remove the original MDX file from content directory (`/content/docs`).
-    This ensures duplicated pages will not cause errors.
+print(greet("Developer"))
+```
 
-    Now, You can add the page to another route group, which isn't a descendant of docs layout.
+## Need Help?
 
-    For example, to replace `/docs/test`:
+<Callout title="Stuck on Something?" type="warning">
+  Can't find what you're looking for? Visit our [GitHub Discussions](https://github.com/teluskoOrg/Telusko-Docs/discussions) or join our [Discord](https://discord.com/invite/D8hWe9BqfF) community forums for help from fellow learners and instructors.
+</Callout>
 
-    <File>
-      <File name="(home)/docs/test/page.tsx" />
-      <Folder name="docs">
-        <File name="layout.tsx" />
-        <File name="[[...slug]]/page.tsx" />
-      </Folder>
-    </File>
+### How to Use This Documentation
 
-    For `/docs`, you need to change the catch-all route to be non-optional:
+1. **Search** - Use the search bar at the top to quickly find specific topics
+2. **Navigate** - Browse through categories using the sidebar
+4. **Practice** - Try the code examples in your own environment
 
-    <File>
-      <File name="(home)/docs/page.tsx" />
-      <Folder name="docs" defaultOpen>
-        <File name="layout.tsx" />
-        <File name="[...slug]/page.tsx" />
-      </Folder>
-    </File>
+## Take Your Learning Further
 
-  </Accordion>
-
-</Accordions>
-
-## Learn More
-
-New to here? Don't worry, we are welcome for your questions.
-
-If you find anything confusing, please give your feedback on [Github Discussion](https://github.com/fuma-nama/fumadocs/discussions)!
-
-### Writing Content
-
-For authoring docs, make sure to read:
+Ready to dive deeper with structured courses, video tutorials, and hands-on projects? 
 
 <Cards>
-  <Card href="/docs/ui/markdown" title="Markdown">
-    Fumadocs has some additional features for authoring content.
-  </Card>
-  <Card href="/docs/ui/navigation" title="Navigation">
-    Learn how to customise navigation links and sidebar items.
-  </Card>
-  <Card href="/docs/ui/page-conventions" title="Page Slugs & Page Tree">
-    Learn how to organise content.
-  </Card>
-  <Card
-    href="/docs/ui/components"
-    title="Components"
-    description="See all available components to enhance your docs"
+  <Card 
+    href="https://courses.telusko.com" 
+    title="Telusko Courses Platform"
+    description="Access premium courses with video lectures, assignments, and certifications"
+    icon={<GraduationCap />}
   />
 </Cards>
 
-### Special Needs
+### Why Learn with Telusko?
+
+- **Expert Instructors** - Learn from industry professionals with years of experience
+- **Certificates** - Earn recognized certifications upon course completion
+- **Active Community** - Connect with thousands of learners worldwide
+
+
+
+---
+
+## Start Exploring
+
+Choose your path and begin learning:
 
 <Cards>
-  <Card
-    href="/docs/ui/static-export"
-    title="Configure Static Export"
-    description="Learn how to enable static export on your docs"
-  />
-  <Card
-    href="/docs/ui/internationalization"
-    title="Internationalization"
-    description="Learn how to enable i18n"
-  />
-  <Card
-    href="/docs/ui/theme"
-    title="Color Themes"
-    description="Add themes to Fumadocs UI"
-  />
-  <Card
-    href="/docs/ui/components"
-    title="Layouts"
-    description="Customise your Fumadocs UI layouts"
-  />
+  <Card href="docs/Introduction-To-Java/Welcome" title="Start with Java" />
+  <Card href="/docs/Intoduction-To-Python/welcome" title="Start with Python" />
 </Cards>
+
+<Callout title="Questions or Feedback?" type="tip">
+  We're constantly improving our documentation. If you have suggestions or find any issues, please let us know through our or [GitHub Discussions](https://github.com/teluskoOrg/Telusko-Docs/discussions).
+</Callout>
+
+
+
+*Written By: <a href="https://www.linkedin.com/in/naman-pahariya/" className="text-blue-600 dark:text-blue-400 hover:opacity-80 no-underline inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer">Naman Pahariya <ExternalLink className="w-4 h-4" /></a>*
