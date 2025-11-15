@@ -64,7 +64,7 @@ export function Feedback({
   function submit(e?: SyntheticEvent) {
     if (opinion == null) return;
 
-    console.log(opinion,'opinion')
+    // console.log(opinion,'opinion')
 
     startTransition(async () => {
       const feedback: Feedback = {
@@ -72,10 +72,10 @@ export function Feedback({
         message,
       };
 
-      console.log(feedback,'feedback')
+      // console.log(feedback,'feedback')
 
       void onRateAction(url, feedback).then((response) => {
-        console.log(response,'feedback response')
+        // console.log(response,'feedback response')
         setPrevious({
           response,
           ...feedback,
@@ -84,7 +84,9 @@ export function Feedback({
         setMessage('');
         setOpinion(null);
       }).catch((error)=>{
-        console.log(error)
+         throw new Error(
+         'Error in Feedback',
+    );
       });
     });
 

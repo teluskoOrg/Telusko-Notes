@@ -16,7 +16,7 @@ import { onRateAction,owner, repo } from '@/lib/github';
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
   const page = source.getPage(params.slug);
-  // console.log(page, "full page data")
+  // console.log(params.slug, "full page data")
   
   if (!page) notFound();
 
@@ -24,9 +24,11 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 
   const {lastModified} = page.data;
 
-   const markdownUrl = `/api/docs/${params.slug?.join('/') || 'index'}/raw`;
+   const markdownUrl = params.slug?.length 
+  ? `/api/docs/${params.slug.join('/')}/raw`
+  : `/api/docs/raw`;
 
-   console.log(params.slug,'params slug')
+  //  console.log(params.slug,'params slug')
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full} lastUpdate={lastModified ? new Date(lastModified) : undefined} tableOfContent={{

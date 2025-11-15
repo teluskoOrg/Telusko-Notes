@@ -31,18 +31,17 @@ export function LLMCopyButton({
   const [checked, onClick] = useCopyButton(async () => {
     const cached = cache.get(markdownUrl);
     if (cached) return navigator.clipboard.writeText(cached);
-console.log(markdownUrl,'markdownURL')
     setLoading(true);
 
     try {
       await navigator.clipboard.write([
         new ClipboardItem({
           'text/plain': fetch(markdownUrl).then(async (res) => {
-            console.log(res,'api res')
+            // console.log(res,'api res')
             const content = await res.text();
             cache.set(markdownUrl, content);
 
-            console.log(content,'content')
+            // console.log(content,'content')
 
             return content;
           }).catch((error)=>{

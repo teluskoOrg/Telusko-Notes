@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   icons:{
     icon:'/favicon.ico'
   },
-  description: 'Your description here',
+  description: 'We Don\'t Teach We Educate',
 };
 
 export default function Layout({ children }: LayoutProps<'/'>) {
