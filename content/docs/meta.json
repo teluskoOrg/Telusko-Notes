@@ -2,8 +2,6 @@
     "root":true,
     "pages":[
         "index.mdx",
-        "---[AlignStartVertical]Java---",
-        "Introduction-to-Java",
         "---[AlignStartVertical]Python---",
         "Introduction-to-Python"
     ]
