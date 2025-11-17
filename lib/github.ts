@@ -81,6 +81,7 @@ export async function onRateAction(
   url: string,
   feedback: Feedback,
 ): Promise<ActionResponse> {
+  'use server';
   const octokit = await getOctokit();
   const destination = await getFeedbackDestination();
   if (!octokit || !destination)
