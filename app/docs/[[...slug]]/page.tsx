@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { LLMCopyButton, ViewOptions } from '@/components/ai/page-actions';
 import { Feedback } from '@/components/feedback';
-import { owner, repo } from '@/lib/github';
+import { onRateAction,owner, repo } from '@/lib/github';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -57,7 +57,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
           })}
         />
       </DocsBody>
-       <Feedback />
+       <Feedback onRateAction={onRateAction} />
     </DocsPage>
   );
 }
