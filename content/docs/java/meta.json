@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+{    "root":false,
+    "pages":[
+        "getting-started.mdx",
+        "introduction.mdx",
+        "basics",
+        "data-types",
+        "operators"
+=======
 {
     "root":false,
     "title":"Java",
@@ -9,5 +18,6 @@
         "Data-of-types-in-Java",
         "Operators-in-Java",
         "Loops-in-Java"
+>>>>>>> a81ca4d27cd925f6f391d100c133e34b61a895bf
     ]
 }

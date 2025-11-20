@@ -1,0 +1,8 @@
+{
+    "root":false,
+    "pages":[
+        "jdk-setup",
+        "first-code.mdx",
+        "how-java-works.mdx"
+    ]
+}

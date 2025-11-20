@@ -1,0 +1,7 @@
+{    "root":false,
+    "pages":[
+        "arithmetic-operators.mdx",
+        "relational-operators.mdx",
+        "logical-bitwise-operators.mdx"
+    ]
+}
