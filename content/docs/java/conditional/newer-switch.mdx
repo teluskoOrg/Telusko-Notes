@@ -1,0 +1,180 @@
+---
+title: Newer Switch
+---
+
+<Video id="AZb1wLIQ1R4" />
+
+Modern Java has significantly improved the `switch` construct, transforming it from a basic conditional statement into a far more powerful and expressive feature.  
+In this lecture, we compare the **old switch** with the **new switch (Java 12+ preview, standardized in Java 14)** and understand why these enhancements matter.
+
+
+## 1. Old Switch (Before Java 12)
+
+The traditional switch statement has been part of Java since its early versions.  
+Although useful, it came with a number of restrictions that made code verbose and error-prone.
+
+### Limitations of the Old Switch
+
+- Could act **only as a statement**, not as an expression.
+- Required explicit **`break`** to prevent fall-through.
+- Case labels had to be written one at a time.
+- More boilerplate code, making the logic less clear.
+- Easy to forget `break` → causes unintended behavior.
+
+### Example (Classic Style)
+
+```java
+String day = "Monday";
+
+switch (day) {
+    case "Saturday":
+    case "Sunday":
+        System.out.println("6am");
+        break;
+    case "Monday":
+        System.out.println("8am");
+        break;
+    default:
+        System.out.println("7am");
+}
+```
+
+### Explanation
+
+* `"Saturday"` and `"Sunday"` share the same logic, so they are stacked.
+* Each case ends with **`break`**, or Java will "fall through" to the next case.
+* The structure works but invites mistakes—if you forget a `break`, an extra case executes.
+* The overall style tends to get repetitive and long for large switch blocks.
+
+
+## 2. New Switch (Java 12+ Preview, Standard from Java 14)
+
+The upgraded switch is a major improvement, designed to solve the old switch’s drawbacks and make the syntax more expressive and safer.
+
+### Key Improvements
+
+* **Arrow syntax (`->`)** eliminates the need for `break`.
+* Can be used as a **statement** *or an* **expression**.
+* Supports **multiple case labels** separated by commas.
+* More readable, less boilerplate code.
+* Introduces **`yield`** when using multi-line blocks in switch expressions.
+
+These changes align switch with modern Java style: concise, functional, expressive.
+
+
+## Example 1 – New Syntax (Statement Form)
+
+```java
+String day = "Monday";
+
+switch (day) {
+    case "Saturday", "Sunday" -> System.out.println("6am");
+    case "Monday" -> System.out.println("8am");
+    default -> System.out.println("7am");
+}
+```
+
+### Explanation
+
+* The arrow (`->`) replaces both the `:` and the need for a `break`.
+* Each case directly maps to its corresponding action.
+* `"Saturday"` and `"Sunday"` are grouped together using comma separation—easy and clean.
+* No risk of fall-through, because each case is isolated.
+* Improves readability significantly for short, single-statement cases.
+
+
+## Example 2 – New Syntax (Expression Form)
+
+```java
+String day = "Monday";
+
+String result = switch (day) {
+    case "Saturday", "Sunday" -> "6am";
+    case "Monday" -> "8am";
+    default -> "7am";
+};
+
+System.out.println(result);
+```
+
+### Explanation
+
+* The entire switch now **returns a value**, stored in `result`.
+* Each arrow expression returns a value automatically—no `break` needed.
+* This allows switch to behave like a more structured alternative to the ternary operator.
+* Improving code clarity: instead of printing inside the switch, you return a value and use it later.
+* Excellent for cleaner business logic, such as mapping conditions to outcomes.
+
+## Example 3 – Using `yield` in Switch
+
+```java
+String day = "Monday";
+
+String result = switch (day) {
+    case "Saturday", "Sunday" -> {
+        System.out.println("Weekend special case");
+        yield "6am";   // return value
+    }
+    case "Monday" -> "8am";
+    default -> "7am";
+};
+
+System.out.println(result);
+```
+
+### Explanation
+
+* Use `yield` only when a case has multiple statements instead of a single expression.
+* Inside a block (`{ ... }`), you cannot simply place `"6am"` as a value, so you use `yield`.
+* The block can contain print statements, logic, loops, etc.
+* After all statements, `yield` provides the value that the switch expression will return for that case.
+* This makes switch highly flexible: small cases can use arrow syntax, and more complex logic can use block + yield.
+
+
+## 3. Advantages of New Switch
+
+### 1. Cleaner and More Concise
+
+* No repeated case blocks.
+* No more `break` statements.
+* Code is shorter and easier to scan.
+
+### 2. No Fall-Through Bugs
+
+* Old switch required careful use of `break`.
+* New switch eliminates accidental fall-through entirely.
+
+### 3. More Expressive
+
+* Switch can return values (expression form).
+* Better than multiple `if-else` for mapping conditions to results.
+
+### 4. Multiple Labels
+
+* Combining cases is now clean and intentional:
+
+  ```java
+  case "Saturday", "Sunday" -> ...
+  ```
+
+### 5. Supports Complex Logic
+
+* `yield` allows multi-line case handling while still returning a value.
+
+
+## Quick Recap
+
+* **Old switch**
+
+  * Only worked as a statement
+  * Needed `break`
+  * Verbose, fall-through issues
+
+* **New switch**
+
+  * Statement + expression
+  * Arrow syntax (`->`)
+  * Multiple labels
+  * Uses `yield` for multi-line blocks
+  * Safer, cleaner, more modern
+

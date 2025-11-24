@@ -4,6 +4,7 @@
         "if-else.mdx",
        "switch-statments.mdx",
        "if-else-if.mdx",
-       "ternary-operator.mdx"
+       "ternary-operator.mdx",
+       "newer-switch.mdx"
     ]
 }
