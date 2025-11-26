@@ -5,6 +5,7 @@
         "introduction.mdx",
         "basics",
         "strings",
-        "data-types"
+        "basic-data-structures",
+        "variables-and-data-types"
     ]
 } 
