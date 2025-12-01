@@ -1,5 +1,6 @@
 {   "title":"Functions and Modules",
     "pages":[
-        "functions.mdx"
+        "functions.mdx",
+        "modules.mdx"
     ]
 } 
