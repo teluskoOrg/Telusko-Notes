@@ -1,0 +1,137 @@
+---
+title: Class and Object Practical
+---
+
+<Video id="3yOLNV9BF8A" />
+
+## Where to Create a Class
+
+In Java, you can write **multiple classes inside the same file**.  
+However, only **one class** can be declared as `public`, and the **file name must match that public class name**.
+
+For example:
+
+File name → `Demo.java`  
+Public class inside → `public class Demo { ... }`
+
+This rule helps Java identify the main entry point and organize code in a structured way.
+
+
+## Example – Creating and Using a Class
+
+```java
+class Calculator {
+    public int add(int num1, int num2) {
+        System.out.println("In add");
+        return num1 + num2;
+    }
+}
+
+public class Demo {
+    public static void main(String[] args) {
+        Calculator obj = new Calculator(); // object creation
+        int result = obj.add(5, 4);        // calling method using object
+        System.out.println(result);
+    }
+}
+````
+
+This program defines a `Calculator` class and uses it inside the `Demo` class to perform an addition.
+
+
+## Step-by-Step Explanation
+
+### 1. Defining a Class
+
+```java
+class Calculator {
+    public int add(int num1, int num2) {
+        System.out.println("In add");
+        return num1 + num2;
+    }
+}
+```
+
+A class:
+
+* Contains **properties** (variables) and **behaviours** (methods)
+* Acts as a **blueprint** for creating objects
+
+Here:
+
+* The class name is `Calculator`
+* It contains one method `add()`, which returns the sum of two integers
+* `public` before the method means it can be called from other classes
+
+
+### 2. Creating the Main Class
+
+```java
+public class Demo {
+    public static void main(String[] args) {
+        Calculator obj = new Calculator();
+        int result = obj.add(5, 4);
+        System.out.println(result);
+    }
+}
+```
+
+`Demo` contains the `main()` method, which is the **starting point** of every Java program.
+
+Inside `main()`:
+
+1. An object of `Calculator` is created
+2. The `add()` method is called using that object
+3. The result is printed
+
+## Important Concepts
+
+### Object Creation
+
+```java
+Calculator obj = new Calculator();
+```
+
+This line performs three roles:
+
+1. `Calculator` → the **type** of the object (class name)
+2. `obj` → reference variable (stores address of the object)
+3. `new Calculator()` → creates the actual object in memory
+
+Think of it like this:
+
+* The object (`new Calculator()`) is the actual device
+* The reference (`obj`) is the remote control used to operate the device
+
+Without the reference, you cannot call methods of the object.
+
+### Method Call Using Object
+
+```java
+int result = obj.add(5, 4);
+```
+
+* The object `obj` calls the method `add()`
+* The values `5` and `4` are passed as arguments
+* The method returns the sum, which is stored in `result`
+
+
+## Output
+
+```
+In add
+9
+```
+
+The line *"In add"* prints from inside the method, and `9` is the final result of the addition.
+
+
+## Summary
+
+* A **class** defines what an object will contain (properties) and what it can do (methods).
+* An **object** is created using the `new` keyword.
+* The **reference variable** (like `obj`) is used to access methods and variables of the object.
+* Only **one public class** is allowed per `.java` file, and the filename must match that class name.
+* Methods inside the class are invoked using the object created from that class.
+
+Written By: <a href="https://www.linkedin.com/in/shivasrivastava1/" className="text-blue-600 dark:text-blue-400 hover:opacity-80 no-underline inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer"> Shiva Srivastava <ExternalLink className="w-4 h-4" /></a>
