@@ -10,6 +10,7 @@
         "operators",
         "conditional",
         "loops",
-        "introduction-to-classes-and-objects"
+        "introduction-to-classes-and-objects",
+        "encapsulation"
     ]
 }
