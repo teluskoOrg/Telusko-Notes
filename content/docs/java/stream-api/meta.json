@@ -1,0 +1,11 @@
+{
+    "root": false,
+    "pages": [
+        "need-of-stream-api.mdx",
+        "for-each-method.mdx",
+        "stream-basics.mdx",
+        "stream-intermediate-operations.mdx",
+        "stream-terminal-operations.mdx",
+        "stream-parallelism.mdx"
+    ]
+}

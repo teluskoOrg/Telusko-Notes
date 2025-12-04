@@ -1,16 +1,44 @@
-
-{    "root":false,
-    "title":"Java",
-    "icon":"CodeXml",
-    "pages":[
+{
+    "root": false,
+    "title": "Java",
+    "icon": "CodeXml",
+    "pages": [
         "getting-started.mdx",
         "introduction.mdx",
+
         "basics",
-        "data-types",
         "operators",
-        "conditional",
-        "loops",
-        "introduction-to-classes-and-objects",
-        "encapsulation"
+        "control-flow",
+        "arrays",
+        "methods-and-constructors",
+
+        "classes-and-objects",
+        "encapsulation",
+        "inheritance",
+        "polymorphism",
+        "abstraction-and-interfaces",
+        "inner-classes",
+
+        "strings",
+        "lang-and-util-apis",
+        "exception-handling",
+
+        "collections",
+        "collection-internals",
+        "stream-api",
+
+        "concurrency-advanced",
+        "jvm-internals",
+        "nio",
+        "modern-java",
+
+        "file-handling",
+        "design-patterns",
+        "testing",
+        "build-tools",
+
+        "spring-core",
+        "spring-boot",
+        "rest-api"
     ]
 }

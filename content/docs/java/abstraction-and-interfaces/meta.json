@@ -1,0 +1,17 @@
+{
+    "root": false,
+    "pages": [
+        "abstract-class.mdx",
+        "abstract-method.mdx",
+        "interface-basics.mdx",
+        "need-of-interface.mdx",
+        "more-on-interfaces.mdx",
+        "types-of-interface.mdx",
+        "default-method-in-interface.mdx",
+        "static-method-in-interface.mdx",
+        "functional-interface.mdx",
+        "lambda-expression-basics.mdx",
+        "lambda-with-return.mdx",
+        "marker-interface.mdx"
+    ]
+}

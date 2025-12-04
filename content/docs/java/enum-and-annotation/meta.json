@@ -1,0 +1,11 @@
+{
+    "root": false,
+    "pages": [
+        "what-is-enum.mdx",
+        "enum-if-and-switch.mdx",
+        "enum-class.mdx",
+        "annotation-basics.mdx",
+        "built-in-annotations.mdx",
+        "custom-annotation.mdx"
+    ]
+}

@@ -1,0 +1,10 @@
+{
+    "root": false,
+    "pages": [
+        "inner-class.mdx",
+        "method-local-inner-class.mdx",
+        "static-inner-class.mdx",
+        "anonymous-inner-class.mdx",
+        "abstract-anonymous-inner-class.mdx"
+    ]
+}

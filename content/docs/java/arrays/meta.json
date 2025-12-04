@@ -1,0 +1,14 @@
+{
+    "root": false,
+    "pages": [
+        "need-of-array.mdx",
+        "array-basics.mdx",
+        "creation-of-array.mdx",
+        "array-iteration-techniques.mdx",
+        "drawbacks-of-array.mdx",
+        "array-of-objects.mdx",
+        "multi-dimensional-array.mdx",
+        "jagged-and-3d-array.mdx",
+        "arrays-class-methods.mdx"
+    ]
+}

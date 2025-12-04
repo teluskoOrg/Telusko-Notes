@@ -1,7 +1,12 @@
-{    "root":false,
-    "pages":[
+{
+    "root": false,
+    "pages": [
         "arithmetic-operators.mdx",
         "relational-operators.mdx",
-        "logical-bitwise-operators.mdx"
+        "logical-bitwise-operators.mdx",
+        "unary-operators.mdx",
+        "assignment-operators.mdx",
+        "ternary-operator.mdx",
+        "operator-precedence.mdx"
     ]
 }

@@ -1,0 +1,15 @@
+{
+    "root": false,
+    "pages": [
+        "introduction.mdx",
+        "class-and-object.mdx",
+        "class-and-object-practical.mdx",
+        "stack-and-heap.mdx",
+        "garbage-collection-and-finalize.mdx",
+        "static-variable.mdx",
+        "static-block.mdx",
+        "object-class-methods.mdx",
+        "cloneable-interface.mdx",
+        "packages-in-java.mdx"
+    ]
+}

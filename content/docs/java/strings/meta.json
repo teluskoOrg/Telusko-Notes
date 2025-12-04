@@ -1,0 +1,11 @@
+{
+    "root": false,
+    "pages": [
+        "what-is-string.mdx",
+        "mutable-vs-immutable.mdx",
+        "stringbuffer-stringbuilder.mdx",
+        "string-methods.mdx",
+        "string-pool.mdx",
+        "string-performance.mdx"
+    ]
+}

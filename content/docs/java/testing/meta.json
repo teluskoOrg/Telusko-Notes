@@ -1,0 +1,8 @@
+{
+    "root": false,
+    "pages": [
+        "junit-basics.mdx",
+        "mockito.mdx",
+        "test-driven-development.mdx"
+    ]
+}

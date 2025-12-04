@@ -1,120 +1,546 @@
 ---
-title: Getting Started
-description: A detailed introduction to Java, its features, history, and why it became one of the most influential programming languages.
-icon: Sparkles
+title: GETTING STARTED
 ---
 
-<Video id="bm0OyhwFDuY" />
+This course is designed to take a learner from absolute beginner to advanced Java developer.
+You will start by understanding how Java works internally, then gradually move toward object-oriented programming, advanced language features, multithreading and memory management.
 
-## Why Java Became Popular
+Each module builds on the previous one, ensuring a smooth learning curve.
+By the end of these modules, you will be able to:
 
-Java became one of the most widely adopted programming languages because it solved a crucial problem: creating software that can run on any system without modification. Its clean, structured syntax and extensive ecosystem made it suitable for beginners while being powerful enough for enterprise-grade development. Over decades, Java has evolved alongside industry needs, making it a cornerstone of backend systems, Android apps, cloud services, and large-scale enterprise platforms.
+* Understand how Java programs run inside the JVM
+* Write clean, efficient Java code following industry standards
+* Fully grasp OOP concepts and apply them in real projects
+* Use advanced Java features like Streams, Lambdas, NIO, Optional, Records, and Virtual Threads
+* Work confidently with data structures, algorithms, collections, and multithreading
+* Understand JVM memory, class loading, and garbage collection
+* Apply design patterns used in enterprise-level systems
+* Become job-ready as an advanced Java developer
 
-### Feature-Rich and Versatile
+## 01 — Java Basics
 
-Java supports multiple domains such as mobile development, backend APIs, distributed systems, enterprise solutions, and desktop applications. Its rich ecosystem—powered by frameworks like Spring, Hibernate, and Jakarta EE—allows developers to build complex applications efficiently.
+Introduction to Java, how it works, essential concepts like variables, data types, input handling, and basic program structure.
 
-### Readable and Maintainable
+![java basic](/images/java/getting-started/01-java-basic.png)
 
-A major strength of Java lies in its readability. The language enforces a class-based structure, consistent naming, and clear syntax. This predictability makes Java easy to learn and maintain, especially in large projects that evolve over years.
+## 02 — Operators
 
-### WORA (Write Once, Run Anywhere)
+Understanding how Java performs calculations, comparisons, logical decisions, and evaluation order using different types of operators.
 
-Java introduced the revolutionary concept of platform independence.
-Programs are compiled into **bytecode**, which is executed by the **Java Virtual Machine (JVM)**.
-Since JVM implementations exist for all major operating systems, the same Java program runs everywhere without modification.
+![operators](/images/java/getting-started/02-operators.png)
 
-### Rich API Support
+## 03 — Control Flow
 
-The Java Standard Library comes with thousands of ready-to-use utilities covering data structures, I/O operations, networking, dates, regular expressions, and much more. This allows developers to focus on actual problem-solving rather than implementing low-level utilities.
+Mastering decision-making tools like if-else, switch statements, loops, and flow-control techniques for building logical programs.
 
-#### Example: Using ArrayList
-
-```java
-import java.util.ArrayList;
-
-public class Example {
-    public static void main(String[] args) {
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Alice");
-        names.add("Bob");
-        names.add("Charlie");
-
-        System.out.println(names);
-    }
-}
-```
-
-### Strong Exception Handling
-
-Java provides structured exception handling, allowing applications to handle unexpected events gracefully rather than crashing.
-
-#### Example
-
-```java
-try {
-    int result = 10 / 0;
-} catch (ArithmeticException e) {
-    System.out.println("You cannot divide by zero!");
-}
-```
-
-### Secure and Robust
-
-Java provides built-in security features like:
-
-* Automatic memory management (Garbage Collection)
-* A secure classloading mechanism
-* Bytecode verification to prevent unsafe operations
-
-These features make Java a trusted language for high-risk industries like banking and finance.
+**Image prompt:**
+"A flowchart-like illustration showing branching paths for if-else, loops circling around, and Java code blocks explaining decision-making and iteration."
 
 ---
 
-## History of Java
+## 04 — Arrays
 
-Java was created in the early 1990s by **James Gosling** at **Sun Microsystems**. Initially designed for embedded systems, it became widely adopted once the internet boom began. Its promise of cross-platform compatibility aligned perfectly with the needs of web applications.
+How to store multiple values, work with single and multidimensional arrays, iterate using loops, and use array utility methods.
 
-### Origins
+**Image prompt:**
+"A conceptual visual of boxes representing array indexes, arrows showing iteration, and examples of 1D, 2D, and jagged arrays in Java."
 
-Java was officially released in **1995**.
-It was designed with key goals:
+---
 
-* Simple and easy to learn
-* Object-oriented
-* Secure
-* Portable across systems
-* Robust and memory-safe
+## 05 — Methods and Constructors
 
-These design choices shaped Java into a language that has endured for decades.
+Understanding reusable code blocks, method overloading, constructors, object initialization, and important keywords like this and super.
 
-### Acquisition by Oracle
+**Image prompt:**
+"Illustration showing Java methods as building blocks, arrows showing parameters going in and return values coming out, along with constructor diagrams."
 
-In 2010, Sun Microsystems was acquired by **Oracle Corporation**, which continues to maintain Java today. Oracle modernized Java’s development cycle and improved its tooling and performance.
+---
 
-### Rapid Release Cycle
+## 06 — Classes and Objects
 
-Java now follows a **six-month release cycle**, with periodic **LTS (Long Term Support)** releases.
-Popular LTS versions include:
+Deep dive into OOP fundamentals, memory model (stack and heap), static members, object lifecycle, garbage collection, and Object class methods.
 
-* Java 8
-* Java 11
-* Java 17
-* Java 21
+**Image prompt:**
+"A structured diagram showing Java objects in heap memory, references in stack memory, with class blueprints and object instances connected visually."
 
-This predictable cycle ensures consistent updates, better performance, and modern programming features.
+---
 
-### Java in Today’s World
+## 07 — Encapsulation
 
-Java remains one of the most widely used languages worldwide, powering:
+How to hide data using private fields, provide controlled access via getters/setters, use access modifiers, and build secure class structures.
 
-* Financial and banking systems
-* Retail and e-commerce platforms
-* Cloud-native microservices
-* Android applications
-* Big-data technologies like Hadoop and Spark
-* Enterprise systems built using Spring Boot
+**Image prompt:**
+"A shield-styled concept showing private fields protected inside a class, with controlled getter/setter arrows demonstrating data encapsulation."
 
-Its combination of reliability, performance, and massive ecosystem ensures Java continues to be relevant in modern software development.
+---
 
-Written By: <a href="https://www.linkedin.com/in/shivasrivastava1/" className="text-blue-600 dark:text-blue-400 hover:opacity-80 no-underline inline-flex items-center gap-1" target="_blank" rel="noopener noreferrer"> Shiva Srivastava <ExternalLink className="w-4 h-4" /></a>
+## 08 — Inheritance
+
+Building new classes from existing ones, understanding types of inheritance, method overriding, and runtime behavior through polymorphism.
+
+**Image prompt:**
+"A family tree style diagram showing parent and child Java classes, arrows indicating inheritance relationships, with method overriding highlights."
+
+---
+
+## 09 — Polymorphism
+
+Mastering compile-time and runtime polymorphism, method binding, and achieving dynamic behavior in Java programs.
+
+**Image prompt:**
+"A visual metaphor showing one interface with multiple implementations, or one method name performing different behaviors based on context."
+
+---
+
+## 10 — Abstraction and Interfaces
+
+Understanding abstract classes, interfaces, multiple-type inheritance, functional interfaces, lambdas, and interface enhancements in modern Java.
+
+**Image prompt:**
+"Conceptual illustration of abstract blueprints and interface contracts, with lambda expression symbols and code examples integrated."
+
+---
+
+## 11 — Inner Classes
+
+Working with nested classes, method-local, static nested, and anonymous classes for event handling and structural organization.
+
+**Image prompt:**
+"Layered diagram showing classes within classes, highlighting anonymous classes with a Java code snippet for context."
+
+---
+
+## 12 — Enum and Annotation
+
+Learning enumerations for fixed values and annotations for metadata, including built-in and custom annotation creation.
+
+**Image prompt:**
+"Modern flat visual showing enum constants arranged neatly, and annotation tags like @Override and @Custom annotated on Java methods."
+
+---
+
+## 13 — Strings
+
+Understanding string immutability, memory storage (pool), common methods, and mutable alternatives like StringBuilder and StringBuffer.
+
+**Image prompt:**
+"Visual of string pool memory, showing interned strings, and comparison with builder-based mutable string diagrams."
+
+---
+
+## 14 — Java Lang and Util APIs
+
+Mastering important standard classes like Wrapper types, Math, System, Objects, Arrays, Collections, Date/Calendar, Random, UUID, and the Java Time API.
+
+**Image prompt:**
+"Collage of Java utility classes like Math, Arrays, Collections, and LocalDate, arranged as a clean reference-style infographic."
+
+---
+
+## 15 — Exception Handling
+
+Learning error handling techniques, try-catch, multiple catches, finally, throw/throws, custom exceptions, and Java exception hierarchy.
+
+**Image prompt:**
+"Diagram showing try-catch-finally flow, exception hierarchy tree, and error-handling pathways in Java."
+
+---
+
+## 16 — Collections Framework
+
+Understanding List, Set, Map, Queue, and their implementations (ArrayList, HashSet, HashMap, TreeMap, PriorityQueue, etc.).
+
+**Image prompt:**
+"Structured infographic showing the Java Collections hierarchy with icons for List, Set, Map, Queue and example data structures."
+
+---
+
+## 17 — Stream API
+
+Using streams for functional programming, filtering, mapping, reducing, sorting, and working with parallel execution.
+
+**Image prompt:**
+"Pipeline-style illustration showing stream operations flowing from source to terminal output with map/filter/reduce stages."
+
+---
+
+## 18 — Collection Internals
+
+Deep dive into how collections work internally, including HashMap, ConcurrentHashMap, CopyOnWriteArrayList, fail-fast vs fail-safe, and LinkedHashMap.
+
+**Image prompt:**
+"Technical-style diagram showing internal buckets of HashMap, concurrency locks, and modification behavior indicators."
+
+---
+
+## 19 — Concurrency Advanced
+
+Mastering Executors, thread pools, Future, Callable, locks, semaphores, latches, barriers, atomics, and high-level concurrency utilities.
+
+**Image prompt:**
+"Illustration of multiple threads scheduled by an executor service, with locks, semaphores, and atomic variables represented visually."
+
+---
+
+## 20 — JVM Internals
+
+Understanding JVM architecture, class loading, JIT compilation, garbage collectors, memory leaks, and performance tuning.
+
+**Image prompt:**
+"A detailed JVM architecture diagram showing heap, stack, metaspace, classloader pipeline, and GC workflow."
+
+---
+
+## 21 — NIO
+
+Learning buffers, channels, selectors, asynchronous IO, and high-performance file handling used in scalable systems.
+
+**Image prompt:**
+"Concept showing channels and buffers transferring data, alongside selector multiplexing in a server-like diagram."
+
+---
+
+## 22 — Modern Java Features
+
+Features from Java 8 to Java 21 including Optional, Records, Sealed Classes, Enhanced Switch, Text Blocks, Pattern Matching, and Virtual Threads.
+
+**Image prompt:**
+"A modern infographic featuring Java 8–21 logos with icons for Optional, Records, Sealed Classes, Text Blocks, and Virtual Threads."
+
+---
+
+## 23 — File Handling
+
+Reading and writing files, buffered streams, serialization, deserialization, and handling external data effectively.
+
+**Image prompt:**
+"Illustration of Java writing to files, stream icons flowing into documents, and serialized object diagrams."
+
+---
+
+## 24 — Design Patterns
+
+Understanding essential object-oriented design patterns including Singleton, Factory, Builder, Prototype, Adapter, Observer, Strategy, and Decorator.
+
+**Image prompt:**
+"Abstract diagram showing popular design patterns connected like a blueprint, each represented with a simple icon-based explanation."
+
+---
+
+## 25 — Testing
+
+Unit testing with JUnit, mocking with Mockito, and understanding the fundamentals of test-driven development.
+
+**Image prompt:**
+"A clean visual with test case blocks, green success indicators, and mock objects used in Java testing."
+
+---
+
+## 26 — Build Tools
+
+Learning project automation and dependency management using Maven and Gradle.
+
+**Image prompt:**
+"Professional illustration of Maven and Gradle build pipelines, dependency trees, and project structure diagrams."
+
+```md
+java/
+├── 01-basics/
+│   ├── 01-how-java-works.mdx
+│   ├── 02-jdk-setup.mdx
+│   ├── 03-jdk-jre-jvm.mdx
+│   ├── 04-first-code.mdx
+│   ├── 05-naming-convention.mdx
+│   ├── 06-variables.mdx
+│   ├── 07-data-types.mdx
+│   ├── 08-literals.mdx
+│   ├── 09-type-conversion.mdx
+│   ├── 10-comments.mdx
+│   ├── 11-keyboard-input-scanner.mdx
+│   ├── 12-keyboard-input-bufferedreader.mdx
+│   ├── 13-command-line-arguments.mdx
+│   └── meta.json
+│
+├── 02-operators/
+│   ├── 01-arithmetic-operators.mdx
+│   ├── 02-relational-operators.mdx
+│   ├── 03-logical-bitwise-operators.mdx
+│   ├── 04-unary-operators.mdx
+│   ├── 05-assignment-operators.mdx
+│   ├── 06-ternary-operator.mdx
+│   ├── 07-operator-precedence.mdx
+│   └── meta.json
+│
+├── 03-control-flow/
+│   ├── 01-if-else.mdx
+│   ├── 02-nested-if.mdx
+│   ├── 03-switch-statements.mdx
+│   ├── 04-newer-switch.mdx
+│   ├── 05-while-loop.mdx
+│   ├── 06-do-while-loop.mdx
+│   ├── 07-for-loop.mdx
+│   ├── 08-enhanced-for-loop.mdx
+│   ├── 09-break-and-continue.mdx
+│   ├── 10-labels-in-java.mdx
+│   ├── 11-which-loop-to-use.mdx
+│   └── meta.json
+│
+├── 04-arrays/
+│   ├── 01-need-of-array.mdx
+│   ├── 02-array-basics.mdx
+│   ├── 03-creation-of-array.mdx
+│   ├── 04-array-iteration-techniques.mdx
+│   ├── 05-drawbacks-of-array.mdx
+│   ├── 06-array-of-objects.mdx
+│   ├── 07-multi-dimensional-array.mdx
+│   ├── 08-jagged-and-3d-array.mdx
+│   ├── 09-arrays-class-methods.mdx
+│   └── meta.json
+│
+├── 05-methods-and-constructors/
+│   ├── 01-methods-in-java.mdx
+│   ├── 02-method-overloading.mdx
+│   ├── 03-varargs-in-java.mdx
+│   ├── 04-static-method.mdx
+│   ├── 05-this-keyword.mdx
+│   ├── 06-super-keyword.mdx
+│   ├── 07-constructors.mdx
+│   ├── 08-default-vs-parameterized-constructor.mdx
+│   ├── 09-constructor-chaining.mdx
+│   ├── 10-copy-constructor.mdx
+│   ├── 11-anonymous-object.mdx
+│   └── meta.json
+│
+├── 06-classes-and-objects/
+│   ├── 01-introduction.mdx
+│   ├── 02-class-and-object-theory.mdx
+│   ├── 03-class-and-object-practical.mdx
+│   ├── 04-stack-and-heap.mdx
+│   ├── 05-garbage-collection-and-finalize.mdx
+│   ├── 06-static-variable.mdx
+│   ├── 07-static-block.mdx
+│   ├── 08-object-class-methods.mdx
+│   ├── 09-cloneable-interface.mdx
+│   ├── 10-packages-in-java.mdx
+│   └── meta.json
+│
+├── 07-encapsulation/
+│   ├── 01-encapsulation-concept.mdx
+│   ├── 02-getters-and-setters.mdx
+│   ├── 03-access-modifiers.mdx
+│   ├── 04-data-hiding-vs-encapsulation.mdx
+│   ├── 05-immutable-class.mdx
+│   └── meta.json
+│
+├── 08-inheritance/
+│   ├── 01-need-of-inheritance.mdx
+│   ├── 02-what-is-inheritance.mdx
+│   ├── 03-types-of-inheritance.mdx
+│   ├── 04-multiple-inheritance.mdx
+│   ├── 05-super-keyword-in-inheritance.mdx
+│   ├── 06-upcasting-and-downcasting.mdx
+│   ├── 07-dynamic-method-dispatch.mdx
+│   ├── 08-has-a-vs-is-a-relationship.mdx
+│   └── meta.json
+│
+├── 09-polymorphism/
+│   ├── 01-polymorphism-overview.mdx
+│   ├── 02-compile-time-polymorphism.mdx
+│   ├── 03-run-time-polymorphism.mdx
+│   ├── 04-binding-static-vs-dynamic.mdx
+│   └── meta.json
+│
+├── 10-abstraction-and-interfaces/
+│   ├── 01-abstract-class.mdx
+│   ├── 02-abstract-method.mdx
+│   ├── 03-interface-basics.mdx
+│   ├── 04-need-of-interface.mdx
+│   ├── 05-more-on-interfaces.mdx
+│   ├── 06-types-of-interface.mdx
+│   ├── 07-default-method-in-interface.mdx
+│   ├── 08-static-method-in-interface.mdx
+│   ├── 09-functional-interface.mdx
+│   ├── 10-lambda-expression-basics.mdx
+│   ├── 11-lambda-with-return.mdx
+│   ├── 12-marker-interface.mdx
+│   └── meta.json
+│
+├── 11-inner-classes/
+│   ├── 01-inner-class.mdx
+│   ├── 02-method-local-inner-class.mdx
+│   ├── 03-static-inner-class.mdx
+│   ├── 04-anonymous-inner-class.mdx
+│   ├── 05-abstract-anonymous-inner-class.mdx
+│   └── meta.json
+│
+├── 12-enum-and-annotation/
+│   ├── 01-what-is-enum.mdx
+│   ├── 02-enum-if-and-switch.mdx
+│   ├── 03-enum-class.mdx
+│   ├── 04-annotation-basics.mdx
+│   ├── 05-built-in-annotations.mdx
+│   ├── 06-custom-annotation.mdx
+│   └── meta.json
+│
+├── 13-strings/
+│   ├── 01-what-is-string.mdx
+│   ├── 02-mutable-vs-immutable.mdx
+│   ├── 03-stringbuffer-stringbuilder.mdx
+│   ├── 04-string-methods.mdx
+│   ├── 05-string-pool.mdx
+│   ├── 06-string-performance.mdx
+│   └── meta.json
+│
+├── 14-lang-and-util-apis/
+│   ├── 01-overview-java-lang-and-java-util.mdx
+│   ├── 02-wrapper-classes.mdx
+│   ├── 03-math-class.mdx
+│   ├── 04-system-and-runtime.mdx
+│   ├── 05-objects-class.mdx
+│   ├── 06-random-class.mdx
+│   ├── 07-scanner-class.mdx
+│   ├── 08-arrays-utility-class.mdx
+│   ├── 09-collections-utility-class.mdx
+│   ├── 10-date-and-calendar.mdx
+│   ├── 11-java-time-api.mdx
+│   ├── 12-optional-class.mdx
+│   ├── 13-uuid-class.mdx
+│   └── meta.json
+│
+├── 15-exception-handling/
+│   ├── 01-what-is-exception.mdx
+│   ├── 02-try-catch.mdx
+│   ├── 03-multiple-catch.mdx
+│   ├── 04-finally-block.mdx
+│   ├── 05-try-with-resources.mdx
+│   ├── 06-throw-vs-throws.mdx
+│   ├── 07-custom-exception.mdx
+│   ├── 08-exception-hierarchy.mdx
+│   ├── 09-checked-vs-unchecked-exception.mdx
+│   └── meta.json
+│
+├── 16-collections/
+│   ├── 01-collection-framework-overview.mdx
+│   ├── 02-list-interface.mdx
+│   ├── 03-arraylist.mdx
+│   ├── 04-linkedlist.mdx
+│   ├── 05-set-interface.mdx
+│   ├── 06-hashset.mdx
+│   ├── 07-treeset.mdx
+│   ├── 08-map-interface.mdx
+│   ├── 09-hashmap.mdx
+│   ├── 10-treemap.mdx
+│   ├── 11-comparator-vs-comparable.mdx
+│   ├── 12-queue-and-deque.mdx
+│   ├── 13-priorityqueue.mdx
+│   └── meta.json
+│
+├── 17-stream-api/
+│   ├── 01-need-of-stream-api.mdx
+│   ├── 02-for-each-method.mdx
+│   ├── 03-stream-basics.mdx
+│   ├── 04-stream-intermediate-operations.mdx
+│   ├── 05-stream-terminal-operations.mdx
+│   ├── 06-stream-parallelism.mdx
+│   └── meta.json
+│
+├── 18-collection-internals/
+│   ├── 01-hashmap-internals.mdx
+│   ├── 02-concurrenthashmap.mdx
+│   ├── 03-copyonwritearraylist.mdx
+│   ├── 04-linkedhashmap.mdx
+│   ├── 05-failfast-vs-failsafe.mdx
+│   └── meta.json
+│
+├── 19-concurrency-advanced/
+│   ├── 01-threadpool-executor.mdx
+│   ├── 02-callable-and-future.mdx
+│   ├── 03-scheduledexecutorservice.mdx
+│   ├── 04-lock-framework.mdx
+│   ├── 05-readwritelock.mdx
+│   ├── 06-semaphores.mdx
+│   ├── 07-countdownlatch.mdx
+│   ├── 08-cyclicbarrier.mdx
+│   ├── 09-phaser.mdx
+│   ├── 10-atomic-variables.mdx
+│   └── meta.json
+│
+├── 20-jvm-internals/
+│   ├── 01-jvm-architecture.mdx
+│   ├── 02-classloader.mdx
+│   ├── 03-jit-compiler.mdx
+│   ├── 04-garbage-collector-types.mdx
+│   ├── 05-memory-leaks.mdx
+│   ├── 06-jvm-performance-tuning.mdx
+│   └── meta.json
+│
+├── 21-nio/
+│   ├── 01-path-and-files.mdx
+│   ├── 02-buffers-and-channels.mdx
+│   ├── 03-selectors.mdx
+│   ├── 04-asynchronous-io.mdx
+│   └── meta.json
+│
+├── 22-modern-java/
+│   ├── 01-optional-class.mdx
+│   ├── 02-records.mdx
+│   ├── 03-sealed-classes.mdx
+│   ├── 04-switch-expressions.mdx
+│   ├── 05-text-blocks.mdx
+│   ├── 06-pattern-matching-instanceof.mdx
+│   ├── 07-virtual-threads.mdx
+│   └── meta.json
+│
+├── 23-file-handling/
+│   ├── 01-file-reading-writing.mdx
+│   ├── 02-buffered-io.mdx
+│   ├── 03-serialization.mdx
+│   ├── 04-deserialization.mdx
+│   └── meta.json
+│
+├── 24-design-patterns/
+│   ├── 01-singleton.mdx
+│   ├── 02-factory.mdx
+│   ├── 03-abstract-factory.mdx
+│   ├── 04-builder.mdx
+│   ├── 05-prototype.mdx
+│   ├── 06-adapter.mdx
+│   ├── 07-observer.mdx
+│   ├── 08-strategy.mdx
+│   ├── 09-decorator.mdx
+│   └── meta.json
+│
+├── 25-testing/
+│   ├── 01-junit-basics.mdx
+│   ├── 02-mockito.mdx
+│   ├── 03-test-driven-development.mdx
+│   └── meta.json
+│
+├── 26-build-tools/
+│   ├── 01-maven.mdx
+│   ├── 02-gradle.mdx
+│   └── meta.json
+│
+├── 27-spring-core/
+│   ├── 01-ioc-container.mdx
+│   ├── 02-beans.mdx
+│   ├── 03-dependency-injection.mdx
+│   ├── 04-spring-configurations.mdx
+│   └── meta.json
+│
+├── 28-spring-boot/
+│   ├── 01-spring-boot-intro.mdx
+│   ├── 02-auto-configuration.mdx
+│   ├── 03-rest-controller.mdx
+│   ├── 04-crud-api.mdx
+│   ├── 05-jpa-and-hibernate.mdx
+│   └── meta.json
+│
+└── 29-rest-api/
+    ├── 01-what-is-rest.mdx
+    ├── 02-http-methods.mdx
+    ├── 03-request-response.mdx
+    ├── 04-status-codes.mdx
+    ├── 05-rest-best-practices.mdx
+    └── meta.json
+```

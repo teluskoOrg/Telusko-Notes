@@ -1,8 +1,10 @@
 {
-    "root":false,
-    "pages":[
-      "encapsulation.mdx",
-      "methods.mdx",
-      "getter-setter.mdx"
+    "root": false,
+    "pages": [
+        "encapsulation-concept.mdx",
+        "getters-and-setters.mdx",
+        "access-modifiers.mdx",
+        "data-hiding-vs-encapsulation.mdx",
+        "immutable-class.mdx"
     ]
 }

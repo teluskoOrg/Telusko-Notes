@@ -1,8 +1,18 @@
 {
-    "root":false,
-    "pages":[
-        "jdk-setup",
+    "root": false,
+    "pages": [
+        "how-java-works.mdx",
+        "jdk-setup.mdx",
+        "jdk-jre-jvm.mdx",
         "first-code.mdx",
-        "how-java-works.mdx"
+        "naming-convention.mdx",
+        "variables.mdx",
+        "data-types.mdx",
+        "literals.mdx",
+        "type-conversion.mdx",
+        "comments.mdx",
+        "keyboard-input-scanner.mdx",
+        "keyboard-input-bufferedreader.mdx",
+        "command-line-arguments.mdx"
     ]
 }
