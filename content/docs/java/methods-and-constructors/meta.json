@@ -1,7 +1,7 @@
 {
     "root": false,
     "pages": [
-        "methods-in-java.mdx",
+        "methods.mdx",
         "method-overloading.mdx",
         "varargs-in-java.mdx",
         "static-method.mdx",
