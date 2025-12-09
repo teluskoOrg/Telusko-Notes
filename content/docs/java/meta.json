@@ -11,9 +11,9 @@
         "control-flow",
         
         "DISABLED-arrays",
-        "DISABLED-methods-and-constructors",
+        "methods-and-constructors",
 
-        "DISABLED-classes-and-objects",
+        "classes-and-objects",
         "DISABLED-encapsulation",
         "DISABLED-inheritance",
         "DISABLED-polymorphism",
