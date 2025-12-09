@@ -3,6 +3,7 @@
         "if-condition.mdx",
         "else-and-debugging.mdx",
         "nested-if.mdx",
-        "elif.mdx"
+        "elif.mdx",
+        "match.mdx"
     ]
 } 
