@@ -9,6 +9,7 @@
         "variables-and-data-types",
         "functions-and-modules",
         "input-and-swapping",
-        "conditional-statements"
+        "conditional-statements",
+        "iteration"
     ]
 } 
