@@ -1,5 +1,6 @@
 {   "title":"Iteration",
     "pages":[
-        "while-loop.mdx"
+        "while-loop.mdx",
+        "for-loop.mdx"
     ]
 } 
