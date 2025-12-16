@@ -10,7 +10,7 @@
         "operators",
         "control-flow",
         
-        "DISABLED-arrays",
+        "arrays",
         "methods-and-constructors",
 
         "classes-and-objects",
