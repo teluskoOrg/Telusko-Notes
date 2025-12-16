@@ -10,6 +10,7 @@
         "functions-and-modules",
         "input-and-swapping",
         "conditional-statements",
-        "iteration"
+        "iteration",
+        "arrays"
     ]
 } 
