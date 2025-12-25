@@ -1,7 +1,0 @@
-{
-    "root": false,
-    "pages": [
-        "maven.mdx",
-        "gradle.mdx"
-    ]
-}

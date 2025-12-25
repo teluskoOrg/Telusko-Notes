@@ -1,8 +1,0 @@
-{   "title":"Basic Data Structures",
-    "pages":[
-        "lists.mdx",
-        "tuples.mdx",
-        "sets.mdx",
-        "dictionaries.mdx"
-    ]
-} 

@@ -1,9 +1,0 @@
-{
-    "root": false,
-    "pages": [
-        "file-reading-writing.mdx",
-        "buffered-io.mdx",
-        "serialization.mdx",
-        "deserialization.mdx"
-    ]
-}

@@ -1,9 +1,0 @@
-{
-    "root": false,
-    "pages": [
-        "path-and-files.mdx",
-        "buffers-and-channels.mdx",
-        "selectors.mdx",
-        "asynchronous-io.mdx"
-    ]
-}

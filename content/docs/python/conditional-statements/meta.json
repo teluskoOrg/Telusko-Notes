@@ -1,9 +1,0 @@
-{   "title":"Conditional Statements",
-    "pages":[
-        "if-condition.mdx",
-        "else-and-debugging.mdx",
-        "nested-if.mdx",
-        "elif.mdx",
-        "match.mdx"
-    ]
-} 

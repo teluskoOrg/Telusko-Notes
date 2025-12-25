@@ -21,7 +21,7 @@ export default function HomePage() {
         transition={{ delay: 0.2, duration: 0.6 }}
       >
         <span className="font-UX font-[700] text-[#051A1E] dark:text-[#F4F4F4]">Telusko</span> <span 
-        className="font-Playfair font-medium max-[418px]:block max-[418px]:-mt-7"><i>Docs</i></span>
+        className="font-Playfair font-medium max-[418px]:block max-[418px]:-mt-7"><i>Notes</i></span>
       </motion.h1>
 
       <motion.p
@@ -30,7 +30,7 @@ export default function HomePage() {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4, duration: 0.6 }}
         >
-          Friendly documentation for tech stacks - from backend frameworks to frontend libraries, cloud platforms, and beyond.
+          Friendly notes for tech stacks - from backend frameworks to frontend libraries, cloud platforms, and beyond.
         </motion.p>
 
 
