@@ -1,9 +1,9 @@
 import { App, Octokit } from 'octokit';
 import type { ActionResponse, Feedback } from '@/components/feedback';
 
-export const repo = 'Telusko-Docs';
+export const repo = 'Telusko-Notes';
 export const owner = 'teluskoOrg';
-export const DocsCategory = 'Docs Feedback';
+export const DocsCategory = 'Notes Feedback';
 
 let instance: Octokit | undefined;
 

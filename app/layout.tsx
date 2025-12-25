@@ -10,8 +10,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Telusko Docs',
-    template: 'Telusko Docs' // Remove the template pattern
+    default: 'Telusko Notes',
+    template: 'Telusko Notes' // Remove the template pattern
   },
   icons:{
     icon:'/favicon.ico'
