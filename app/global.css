@@ -11,61 +11,74 @@
 }
 
 @theme {
-  --color-fd-background: 	hsl(48, 33%, 97%);
-  --color-fd-foreground: hsl(222, 25%, 10%);
+  /* Background & text */
+  --color-fd-background: hsl(90, 30%, 97%);
+  --color-fd-foreground: hsl(160, 20%, 12%);
 
-  --color-fd-muted: hsl(220, 15%, 93%);
-  --color-fd-muted-foreground: hsl(220, 10%, 45%);
+  /* Muted areas */
+  --color-fd-muted: hsl(90, 25%, 92%);
+  --color-fd-muted-foreground: hsl(160, 12%, 40%);
 
-  --color-fd-popover: hsl(220, 20%, 99%);
-  --color-fd-popover-foreground: hsl(222, 25%, 15%);
+  /* Cards & popovers */
+  --color-fd-popover: hsl(90, 30%, 99%);
+  --color-fd-popover-foreground: hsl(160, 20%, 14%);
 
-  --color-fd-card: hsl(53, 29%, 95%);
-  --color-fd-card-foreground: hsl(222, 25%, 10%);
+  --color-fd-card: hsl(95, 28%, 95%);
+  --color-fd-card-foreground: hsl(160, 20%, 12%);
 
-  --color-fd-border: hsla(220, 12%, 70%, 45%);
+  /* Borders */
+  --color-fd-border: hsla(160, 15%, 40%, 30%);
 
-  /* PRIMARY — Blue brand */
-  --color-fd-primary: hsl(222, 75%, 55%);
+  /* PRIMARY — Calm green */
+  --color-fd-primary: hsl(145, 55%, 42%);
   --color-fd-primary-foreground: hsl(0, 0%, 98%);
 
-  --color-fd-secondary: hsl(220, 15%, 90%);
-  --color-fd-secondary-foreground: hsl(222, 25%, 10%);
+  /* Secondary surfaces */
+  --color-fd-secondary: hsl(95, 25%, 90%);
+  --color-fd-secondary-foreground: hsl(160, 20%, 12%);
 
-  /* Hover, subtle highlights */
-  --color-fd-accent: hsla(222, 90%, 78%, 35%);
-  --color-fd-accent-foreground: hsl(222, 25%, 10%);
+  /* Hover & highlights */
+  --color-fd-accent: hsla(145, 60%, 55%, 25%);
+  --color-fd-accent-foreground: hsl(160, 20%, 12%);
 
-  --color-fd-ring: hsl(222, 80%, 60%);
+  /* Focus ring */
+  --color-fd-ring: hsl(145, 65%, 45%);
 }
 
+
 .dark {
+  /* Background & text */
   --color-fd-background: hsl(220, 15%, 9%);
   --color-fd-foreground: hsl(220, 20%, 92%);
 
-  --color-fd-muted: hsl(0, 10%, 14%);
-  --color-fd-muted-foreground: hsl(220, 10%, 70%);
+  /* Muted areas */
+  --color-fd-muted: hsl(160, 15%, 12%);
+  --color-fd-muted-foreground: hsl(90, 10%, 65%);
 
-  --color-fd-popover: hsl(220, 10%, 12%);
-  --color-fd-popover-foreground: hsl(220, 20%, 88%);
+  /* Cards & popovers */
+  --color-fd-popover: hsl(160, 15%, 10%);
+  --color-fd-popover-foreground: hsl(90, 20%, 90%);
 
-  --color-fd-card: hsl(220, 10%, 11%);
-  --color-fd-card-foreground: hsl(220, 20%, 98%);
+ --color-fd-card: hsl(220, 10%, 11%);
+  --color-fd-card-foreground: hsl(90, 20%, 95%);
 
-  --color-fd-border: hsla(220, 10%, 45%, 25%);
+  /* Borders */
+ --color-fd-border: hsla(220, 10%, 45%, 25%);
 
-  /* PRIMARY — Bright cool blue */
-  --color-fd-primary: hsl(222, 85%, 65%);
-  --color-fd-primary-foreground: hsl(220, 15%, 8%);
+  /* PRIMARY — Fresh green */
+  --color-fd-primary: hsl(145, 60%, 55%);
+  --color-fd-primary-foreground: hsl(160, 20%, 8%);
 
-  --color-fd-secondary: hsl(220, 10%, 16%);
-  --color-fd-secondary-foreground: hsl(220, 20%, 92%);
+  /* Secondary surfaces */
+   --color-fd-secondary: hsl(220, 10%, 16%);
+  --color-fd-secondary-foreground: hsl(90, 20%, 92%);
 
-  /* Hover, outlines */
-  --color-fd-accent: hsla(222, 60%, 52%, 30%);
-  --color-fd-accent-foreground: hsl(220, 15%, 92%);
+  /* Hover & outlines */
+  --color-fd-accent: hsla(145, 55%, 45%, 30%);
+  --color-fd-accent-foreground: hsl(90, 20%, 92%);
 
-  --color-fd-ring: hsl(222, 80%, 60%);
+  /* Focus ring */
+  --color-fd-ring: hsl(145, 65%, 55%);
 }
 
 /* --------------------------------------------------------------- */

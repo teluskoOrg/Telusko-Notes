@@ -23,15 +23,13 @@ export default function Layout({ children }: LayoutProps<'/'>) {
   return (
     <html lang="en" className={inter.className} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen">
-        <Banner id="close" variant='rainbow' rainbowColors={[
-      'rgba(59, 91, 255, 0.6)',     // primary blue
-    'rgba(88, 116, 255, 0.7)', 
-    'transparent',   // lighter blue
-    'rgba(140, 170, 255, 0.3)',   // soft highlight
-    // 'rgba(59, 91, 255, 0.6)',
+        <Banner id="close" variant='rainbow'  rainbowColors={[
+    'rgba(34, 139, 84, 0.55)',   // primary green
+    'rgba(72, 176, 120, 0.65)',  // fresh mint
     'transparent',
-    'rgba(88, 116, 255, 0.7)',
-    // 'rgba(140, 170, 255, 0.3)',
+    'rgba(120, 210, 165, 0.35)', // soft highlight
+    'transparent',
+    'rgba(72, 176, 120, 0.65)',
     'transparent',
   ]} > <a 
     href="https://go.telusko.com/industry-ready-course" 
