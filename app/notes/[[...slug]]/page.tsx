@@ -13,7 +13,7 @@ import { LLMCopyButton, ViewOptions } from '@/components/ai/page-actions';
 // import { Feedback } from '@/components/feedback';
 import { onRateAction,owner, repo } from '@/lib/github';
 
-export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
+export default async function Page(props: PageProps<'/notes/[[...slug]]'>) {
   const params = await props.params;
   const page = source.getPage(params.slug);
   // console.log(params.slug, "full page data")
@@ -67,7 +67,7 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata(
-  props: PageProps<'/docs/[[...slug]]'>,
+  props: PageProps<'/notes/[[...slug]]'>,
 ): Promise<Metadata> {
   const params = await props.params;
   const page = source.getPage(params.slug);
