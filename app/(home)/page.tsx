@@ -35,7 +35,7 @@ export default function HomePage() {
 
 
 
-      <Link href="/docs" className="w-fit">
+      <Link href="/notes" className="w-fit">
         <motion.button
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}

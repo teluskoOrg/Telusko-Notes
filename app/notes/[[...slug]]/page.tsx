@@ -10,7 +10,7 @@ import { getMDXComponents } from '@/mdx-components';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { LLMCopyButton, ViewOptions } from '@/components/ai/page-actions';
-import { Feedback } from '@/components/feedback';
+// import { Feedback } from '@/components/feedback';
 import { onRateAction,owner, repo } from '@/lib/github';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
@@ -57,7 +57,7 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
           })}
         />
       </DocsBody>
-       <Feedback onRateAction={onRateAction} />
+       {/* <Feedback onRateAction={onRateAction} /> */}
     </DocsPage>
   );
 }
