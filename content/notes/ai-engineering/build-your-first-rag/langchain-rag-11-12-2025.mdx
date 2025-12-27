@@ -1,0 +1,139 @@
+---
+title: Lang Chain RAG with Chroma Vector Store
+---
+## What is RAG?
+- RAG \(Retrieval-Augmented Generation\) is a technique where an LLM answers a question using retrieved document context in addition to its own language capability
+- It connects an LLM with an external knowledge source \(here: product_details.txt\) using retrieval
+- Instead of relying only on model memory, RAG fetches relevant content and injects it into the prompt as context
+- Core idea: Query → Retrieve relevant chunks → Add as context → Generate answer
+
+## Why Do We Need RAG?
+- LLMs do not automatically know your local/custom data like product_details.txt
+- Without retrieval, answers can be:
+  - incomplete \(missing product-specific details\)
+  - inaccurate \(guessing\)
+  - inconsistent \(hallucination risk\)
+- RAG improves answers by ensuring responses are grounded in the most relevant text chunks
+- Efficient because it sends only top relevant chunks, not the entire document, into the prompt
+
+## How RAG Works in This Pipeline
+- Step 1: Load Knowledge Source
+  - Read product_details.txt as documents so the pipeline can process the data
+- Step 2: Split into Chunks
+  - Break large text into smaller pieces to improve retrieval accuracy
+  - Use over-lap to avoid losing meaning at chunk boundaries
+- Step 3: Create Embeddings
+  - Convert each chunk into a vector representation \(semantic meaning as numbers\)
+- Step 4: Store in Vector Database \(Chroma\)
+  - Store embeddings + original chunk text for similarity search
+  - Persist locally so embeddings don’t need to be rebuilt each run
+- Step 5: Retrieve Relevant Context
+  - For every query, retrieve top matching chunks \(example: k=2 chunks\)
+- Step 6: Prompt + Generate
+  - Insert retrieved chunks into the prompt as \{context\}
+  - Pass \{question\} as the user query
+  - LLM generates the answer using provided context
+
+## Data Loading and Chunking
+
+### Using product_details.txt as Knowledge Base
+- Acts as the source of truth for answering product-related queries
+- The RAG pipeline uses this file as its external knowledge store
+
+## Why Chunking is Required
+- Retrieval works best when searching over smaller meaningful chunks
+- Chunking supports:
+  - more accurate similarity matching
+  - better control over prompt context size
+  - improved answer grounding
+
+## Chunk Size and Chunk Overlap
+- Chunk size controls how much text is in one chunk
+- Chunk overlap repeats a small portion across chunks to preserve continuity
+- Proper chunking directly impacts retrieval quality
+
+## Vector Store and Retrieval
+
+## Why Chroma is Used
+- Chroma stores embeddings and supports fast similarity search
+- Works as the pipeline’s vector database to retrieve top relevant content
+
+## Persisting the Vector Store
+- Persist directory stores the DB locally
+- Prevents re-computation of embeddings on every run
+- Makes retrieval faster after first build
+
+## Retriever with Top-K Results
+- Retriever selects the most relevant chunks for the query
+- k=2 means:
+  - only the top 2 most relevant chunks are used as context
+  - keeps context focused and reduces token usage
+
+## Prompting and Answer Generation
+
+## Prompt Role in RAG
+- Prompt defines how the LLM should use:
+  - \{context\} \(retrieved chunks\)
+  - \{question\} \(user query\)
+- Clear prompt ensures:
+  - answers stay grounded in retrieved content
+  - responses remain concise and structured
+
+## End-to-End Flow Summary
+- Load product_details.txt
+- Split into chunks \(size + overlap\)
+- Embed chunks
+- Store embeddings in Chroma
+- Retrieve top relevant chunks for a query
+- Inject retrieved context into prompt
+- LLM generates final answer
+
+## Code Implementation
+
+```python
+from langchain_community.document_loaders import TextLoader
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain_chroma import Chroma
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain.prompts import PromptTemplate
+from langchain_core.runnables import RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+
+# Loading data
+loader = TextLoader("product_details.txt", encoding="utf8")
+docs = loader.load()
+
+# splitter -> chunks
+splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+splits = splitter.split_documents(docs)
+
+# store in vectorStore
+vectordb = Chroma.from_documents(
+    documents=splits,
+    embedding=OpenAIEmbeddings(),
+    persist_directory="chroma_db"
+)
+
+# retrive
+retriever = vectordb.as_retriever(search_kwargs={"k": 2})
+
+template = """You are a helpful AI assistant.
+Use the following pieces of context to answer the question at the end.
+{context}
+Question : {question}
+Answer in a concise manner.
+"""
+
+prompt = PromptTemplate.from_template(template)
+llm = ChatOpenAI(model="gpt-4o")
+
+chain = (
+    {"context": retriever, "question": RunnablePassthrough()}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
+
+response = chain.invoke("suggest products for vacation")
+print(response)
+```

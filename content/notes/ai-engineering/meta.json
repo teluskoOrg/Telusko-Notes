@@ -3,7 +3,11 @@
     "title": "AI Engineering",
     "pages":[
         "the-core-concepts-of-ai-and-llms",
+        "spring-ai",
+        "langchain",
+        "build-your-first-rag",
         "mcp"
+ 
     ]
 }
 

@@ -1,0 +1,57 @@
+---
+title: Configuring ChatMemory in LangChain
+---
+
+## Problem with Stateless LLM Calls
+- LLMs are stateless by default, so they do not remember past user messages unless memory is added in the application.
+- Each call to the model is treated as an isolated request without prior conversation context.
+- Follow-up prompts like “more”, “explain briefly”, or “summarise previous answer” fail without access to earlier messages.
+- To get natural multi-turn dialogue, we must configure a memory layer around the LLM.
+
+## Loading Environment and API Configuration
+- `load_dotenv()` loads environment variables (like API keys) from a `.env` file into the application.
+- This keeps secrets such as `OPENAI_API_KEY` out of the code and inside configuration files.
+- The LangChain and OpenAI integrations rely on these environment variables to authenticate with the API.
+- Correct environment loading is a prerequisite before any chat or memory configuration can work.
+
+## Building the Chat Prompt with History Placeholder
+- `ChatPromptTemplate.from_messages([...])` creates a structured chat prompt from multiple message components.
+- `MessagesPlaceholder("history")` is used to reserve a slot where past conversation messages will be injected.
+- The string `"{input}"` represents the current user message that will be supplied at runtime.
+- This configuration ensures every model call receives both prior history and the latest input for context.
+
+## Designing the In-Memory Store for Session Histories
+- `store = {}` configures a simple Python dictionary to hold chat histories for sessions.
+- Each `session_id` will be used as a key, mapping to a `ChatMessageHistory` object.
+- This design allows multiple independent conversations to be managed in the same application.
+- Memory is thus stored in the application process rather than in the LLM itself.
+
+## Implementing get_session_history Function
+- `get_session_history(session_id: str)` is configured to retrieve the history for a given session.
+- If the `session_id` is not present in `store`, a new `ChatMessageHistory()` object is created and saved.
+- The function always returns a valid `ChatMessageHistory` so the chain can read and update messages.
+- This function acts as a bridge between `session_id` and the underlying memory storage.
+
+## Wrapping Chain with RunnableWithMessageHistory
+- `RunnableWithMessageHistory` wraps the existing chain to automatically manage chat history.
+- It is configured with `get_session_history` so it can look up or create history based on `session_id`.
+- `input_messages_key="input"` tells it which field in the input dict contains the user message.
+- `history_messages_key="history"` tells it which placeholder name in the prompt should receive past messages.
+
+## Configuring Session IDs for Separate Conversations
+- `session_id = "naveen_session_1"` configures a unique identifier for the current conversation.
+- During invocation, `config={"configurable": {"session_id": session_id}}` passes this ID into the runnable.
+- `RunnableWithMessageHistory` uses this `session_id` to fetch the correct `ChatMessageHistory` from `store`.
+- Changing the `session_id` value allows the application to maintain separate memory for different sessions or users.
+
+## Running an Interactive Chat Loop with Memory
+- A `while True` loop is configured to repeatedly accept user input from the console.
+- If the input text is "exit" or "quit" (case-insensitive), the loop breaks and the chat ends.
+- For each other input, `chain_with_history.invoke({"input": value}, config=...)` is called to get a response with memory.
+- The printed result `print("AI:", answer)` shows replies that now consider the full conversation history.
+
+## Key Takeaways for Memory Configuration in LangChain
+- Memory is not built into the LLM; it is configured through `ChatMessageHistory` and `RunnableWithMessageHistory`.
+- `ChatPromptTemplate` with `MessagesPlaceholder("history")` is essential to inject past messages into the prompt.
+- A session-based design using `store` and `session_id` enables multiple independent conversational memories.
+- Proper configuration of environment, model, parser, chain, and history wrapper results in a stateful, multi-turn chat system.

@@ -1,0 +1,97 @@
+---
+title: Spring AI ChatClient & ChatModel
+---
+
+## Why Spring AI
+
+#### Direct Use of LLMs (Without Spring AI)
+- You can directly use OpenAI or Anthropic SDKs inside a Java application  
+- Typical OpenAI steps:  
+- Create an OpenAI account and add credits  
+- Set OPENAI_API_KEY as an environment variable  
+- Add the openai-java dependency to your Maven project  
+- Write simple code to send a prompt (e.g., “Tell me a joke”) and read the response  
+- This approach works well if you plan to use only one provider and one model  
+
+#### The Problem with Direct SDK Usage
+- Every provider has its own SDK, configuration, and coding style  
+- OpenAI code looks one way  
+- Anthropic code looks different  
+- Gemini/others will again be different  
+- If you:  
+    - Switch from OpenAI → Anthropic → Gemini in the future, or  
+    - Want to use multiple providers in the same project, then you may have to rewrite a large part of your integration code  
+- You can write your own abstraction layer, but that is:  
+    - Time-consuming  
+    - Repetitive across projects  
+
+#### Why Spring AI
+- Spring AI gives you an abstraction layer out of the box  
+- Instead of writing provider-specific code (OpenAI/Anthropic/Gemini), you use a common API  
+- Benefits:  
+    - Cleaner and more maintainable code  
+    - Easy to switch providers later without touching the controller/business logic  
+    - Supports multiple providers out of the box: OpenAI, Anthropic, Microsoft, Amazon, Google, Ollama, etc.  
+- This abstraction approach is widely adopted in companies because it keeps AI projects flexible and easier to manage over time  
+
+#### Key Takeaway
+- Yes, you can connect directly to OpenAI or any other LLM provider  
+- But for scalability, flexibility, and maintainability, using Spring AI’s abstraction is a better long-term choice in Java/Spring projects  
+
+---
+
+## ChatClient and ChatModel
+
+#### What is ChatModel?
+- ChatModel (e.g., OpenAiChatModel) is the lower-level Spring AI component that talks directly to the LLM  
+- You can call the model directly (e.g., chatModel.call("message")) and get a response string  
+
+#### Why use ChatModel?
+- It is a quick and direct way to send a message to the LLM and get back an answer  
+- Good for simple use cases where you just need “input → output text”  
+
+#### How does ChatModel work?
+- Spring Boot creates an OpenAiChatModel bean for you (based on your Spring AI configuration)  
+- That bean is injected into the controller through the constructor  
+- You would then use chatModel.call(message) inside the endpoint  
+
+#### What is ChatClient?
+- ChatClient is a higher-level, fluent API built on top of ChatModel  
+- Instead of calling the model directly, you work with prompts and responses  
+
+#### Why use ChatClient?
+- It gives a cleaner and more flexible way to talk to the model compared to calling chatModel directly  
+- You can:  
+    - Build a prompt fluently: prompt(message).call()  
+    - Get the full ChatResponse object, not just text  
+- Read metadata and token usage  
+- This makes it easier to log, monitor, and extend the behavior later  
+
+#### How does ChatClient work?
+- Spring Boot provides a ChatClient.Builder that is already wired to the active model (OpenAI / Gemini based on properties)  
+- In the controller constructor 
+```java
+public AIController(ChatClient.Builder builder) {
+    this.chatClient = builder.build();
+}
+```
+- In the endpoint: 
+```java
+@GetMapping("/api/greet/{message}")
+public String home(@PathVariable String message) {
+
+    ChatResponse response = chatClient
+            .prompt(message)
+            .call()
+            .chatResponse();
+
+    String result = response.getResult().getOutput().getText();
+
+    System.out.println(response.getMetadata());
+    System.out.println(response.getMetadata().getUsage().getTotalTokens());
+
+    return result;
+}
+```
+- Build via ChatClient.Builder injected by Spring (builder.build())  
+- Use chatClient.prompt(message).call().chatResponse() to extract text and metadata as needed  

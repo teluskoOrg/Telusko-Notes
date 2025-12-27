@@ -1,0 +1,85 @@
+---
+title: Python LangChain
+---
+
+## Installing LangChain Packages with uv
+- LangChain uses separate packages for core primitives and provider-specific integrations like OpenAI.
+- We need langchain-core for ChatPromptTemplate, chaining (\|), and StrOutputParser.
+- We need langchain-openai to use ChatOpenAI with the OpenAI chat models like gpt-4o.
+- Install required packages using uv in your project environment as shown below.
+- Commands Used:
+  - uv add langchain-core
+  - uv add langchain-openai #if open ai used
+  - uv add langchain-google-genai #if google gen ai used
+
+## Understanding the LangChain chain = prompt \| llm \| parser
+- The \| operator creates a sequential pipeline: output of left side becomes input of right side.
+- First, the prompt turns \{"input": value\} into a full prompt object for the chat model.
+- Next, the llm (either ChatOpenAI or ChatGoogleGenerativeAI) takes that prompt and generates a raw AI response.
+- Finally, StrOutputParser converts the raw response into a plain Python string suitable for printing.
+- This chain abstraction keeps the chat flow clean, readable, and easy to swap between OpenAI and Gemini.
+
+## ChatPromptTemplate:
+- ChatPromptTemplate is used to define a prompt template instead of passing raw strings every time.
+- In the code, ChatPromptTemplate.from_template\("\{input\}"\) creates a template with a single placeholder called \{input\}.
+- We need this so that whatever the user types can be injected cleanly into the prompt each time.
+- During execution, the chain replaces \{input\} with the current value entered by the user in the loop.
+- This keeps the prompt logic in one place and makes the chain reusable for every user message.
+
+## OpenAI Chat Chain:
+- This chain uses OpenAI’s gpt-4o model wrapped by LangChain’s ChatOpenAI class.
+- We need this chain to take user input, send it to the OpenAI model, and convert the model’s reply into a simple Python string.
+- The chain is built as prompt \| llm \| parser, meaning: template → model → output parsing.
+- Inside the loop, each user value is passed as \{"input": value`\} into chain.invoke\(...\), and the answer is printed.
+- The loop runs until the user types exit or quit, giving a simple console-style chatbot.
+```python
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+
+prompt = ChatPromptTemplate.from_template("{input}")
+
+llm = ChatOpenAI(model="gpt-4o")
+
+parser = StrOutputParser()
+
+while True:
+    value = input("you: ")
+    if value.lower() in ["exit", "quit"]:
+        break
+
+    chain = prompt | llm | parser
+
+    answer = chain.invoke({"input": value})
+    print("AI: " + answer)
+```
+
+## Gemini Chat Chain:
+- This chain uses Google’s Gemini model wrapped by LangChain’s ChatGoogleGenerativeAI class.
+- We need this version when we want to switch the backend LLM from OpenAI to Gemini with minimal code changes.
+- The structure is the same: prompt \| llm \| parser, only the llm object and model name \("gemini-2.0-flash"\) are different.
+- The same input loop is reused: user types a message, it flows through the chain, and the AI’s reply is printed.
+- This pattern shows how changing providers is mostly a matter of swapping the LLM class and model name.
+```python
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_google_genai import ChatGoogleGenerativeAI
+from langchain_core.output_parsers import StrOutputParser
+
+prompt = ChatPromptTemplate.from_template("{input}")
+
+llm = ChatGoogleGenerativeAI(
+    model="gemini-2.0-flash"
+)
+
+parser = StrOutputParser()
+
+while True:
+    value = input("you: ")
+    if value.lower() in ["exit", "quit"]:
+        break
+
+    chain = prompt | llm | parser
+
+    answer = chain.invoke({"input": value})
+    print("AI:", answer)
+```

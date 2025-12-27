@@ -1,0 +1,106 @@
+---
+title: Spring AI Embeddings
+---
+
+## Chat Memory and Spring Advisors
+
+### Problem with Default ChatClient
+- LLMs are stateless and do not remember past conversations by default
+- Each message is treated independently, causing the model to forget prior context.
+- Follow-up queries like “more” fail because the model is unaware of previous responses.
+- Tools like ChatGPT appear to remember only because they use additional memory layers.
+
+### Introducing Advisors in Spring AI
+- Advisors allow interception and modification of requests and responses before reaching the LLM
+- They help extend model behaviour without modifying the LLM itself.
+- Advisors can be used for adding memory, safeguarding responses, or monitoring I/O.
+- They provide a structured mechanism to enrich chat interactions.
+
+### Memory with Advisors
+- Memory is added using MessageChatMemoryAdvisor, which enables storing previous messages.
+- InMemoryChatMemory holds the conversation history within application memory
+- With memory enabled, follow-up questions like “more” or “explain briefly” work correctly.
+- Memory ensures continuity in multi-turn conversations.
+
+### Key Takeaways
+- LLMs forget unless explicit memory is added.
+- Advisors enhance and customize ChatClient behaviour.
+- Memory advisors allow creating conversational applications with context retention.
+- Enables natural, human-like multi-turn dialogue handling.
+
+## Prompt Template
+
+### Why We Need Prompt Templates
+- Helps avoid rewriting full prompts repeatedly by allowing dynamic replacement of values.
+- Enables building endpoints that take user inputs and auto-generate structured prompts
+- Enhances reusability, consistency, and reduces manual effort.
+- Maintains prompt quality across API calls.
+
+### How Prompt Templates Work
+- Templates contain placeholders such as \{type\}, \{year\}, and \{lang\}.
+- User-supplied input values are mapped to these placeholders during runtime.
+- On each API call, templates are processed to generate final prompts.
+- Produces clear and formatted prompts without manual writing.
+
+### Key Flow of Prompt Template Usage
+- User sends a request with required parameters like type, year, and language.
+- Controller extracts parameters and binds them to template variables
+- PromptTemplate replaces placeholders with real user inputs.
+- The final prompt is executed by the model for a structured AI response.
+
+### Key Takeaways
+- PromptTemplate makes prompts reusable and easy to maintain.
+- Always map placeholders with actual values for accuracy.
+- Templates can be edited anytime to improve formatting or output style.
+- Simplifies prompt engineering inside Spring AI applications.
+
+## Embeddings
+
+### Definition
+- Embeddings represent text as numerical vectors capturing meaning and relationships.
+- They allow semantic understanding rather than keyword matching.
+- Spring AI enables generating embeddings directly from Java applications
+- Embeddings form the core of similarity search and knowledge retrieval.
+
+### Embedding Workflow in Spring AI
+- A controller receives input text for embedding generation.
+- The EmbeddingModel converts the text into a vector of float values.
+- Models like text-embedding-3-large can be configured for embedding tasks.
+- Embeddings are returned as arrays representing semantic information.
+
+### When Multiple Embedding Models Exist
+- Spring AI may contain multiple embedding providers like OpenAI or Ollama.
+- @Qualifier helps specify exactly which embedding model should be used
+- Avoids ambiguity during dependency injection.
+- Ensures consistent vector generation from the chosen provider.
+
+### Key Takeaways
+- Embeddings output high-dimensional float vectors representing text meaning.
+- Useful in clustering, similarity search, and information retrieval.
+- Forms the basis for tasks like search, categorization, and RAG pipelines.
+
+## Cosine Similarity
+
+### Definition
+- Cosine similarity measures how similar two vectors are by computing the cosine of the angle between them.
+- Represents closeness in meaning rather than exact matching.
+- Values range from -1 to 1, where higher values mean higher similarity
+- Commonly used in NLP tasks.
+
+### Steps in Cosine Similarity Calculation
+- Convert both pieces of text into embeddings using an EmbeddingModel.
+- Compute the dot product between both embedding vectors.
+- Calculate the magnitude (norm) of each vector.
+- Divide dot product by product of magnitudes to get cosine similarity score.
+
+### Usage
+- Helps identify semantic similarity in text pairs.
+- Returns higher scores for related words like “computer” and “laptop.”
+- Useful in search engines, recommendation systems, and clustering.
+- Supports intelligent retrieval beyond keyword matching.
+
+### Key Takeaways
+- Provides numerical measure of text similarity.
+- Works on embeddings generated from text input.
+- Used in semantic search and related-content discovery.
+- Essential in implementing retrieval-based systems.

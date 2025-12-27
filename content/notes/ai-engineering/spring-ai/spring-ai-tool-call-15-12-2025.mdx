@@ -1,0 +1,106 @@
+---
+title: Spring AI Tool Calling
+---
+
+## What is Tool Calling?
+
+- Tool calling is a capability where an LLM-powered Spring AI application can invoke your backend methods as “tools” to fetch real-world data or perform actions, instead of guessing.
+- A tool is typically a Spring-managed component method exposed to the model with clear metadata (name/description + parameters).
+- The LLM decides when a tool is needed and what inputs to send; your application executes the tool and returns the result back to the model to form the final answer.
+- It helps convert a chatbot from “text-only responder” into an application-aware assistant that can use APIs/services safely and programmatically.
+
+## Why is Tool Calling Needed?
+
+- Access to real-time data
+  - LLMs may not know “today’s” facts (time-sensitive info, breaking news, live metrics).
+- Accuracy and reduced hallucinations
+  - Instead of generating uncertain answers, the assistant can fetch authoritative results from your systems/APIs.
+- Business logic and system integration
+  - Enables the assistant to use your existing Spring services, validations, workflows, and rules.
+- Controlled, auditable behavior
+  - Your code decides what is allowed; tool calls can be logged and monitored for compliance.
+- Better user experience
+  - Users get answers grounded in actual outputs (example: current time, latest headlines) rather than generic responses.
+
+## How to Implement Tool Calling in Spring AI?
+
+- Step 1: Create tool classes as Spring beans
+  - Define tools inside classes registered in Spring (commonly via component scanning).
+  - Keep tools focused: one tool = one clear responsibility (time tool, news tool, etc.).
+- Step 2: Mark tool methods and describe them clearly
+  - Expose methods to the model as tools using a tool annotation.
+  - Write descriptions that are:
+    - Specific about what the tool returns
+    - Clear about expected inputs (ex: timezone format, topic keywords)
+- Step 3: Design tool inputs and outputs for LLM usage
+  - Inputs should be minimal and unambiguous (ex: timezone, topic).
+  - Outputs should be:
+    - Clean, readable, and structured (JSON/text that the model can summarize)
+    - Free of internal stack traces or sensitive data
+- Step 4: Register tools in the ChatClient flow
+  - When building a prompt request, attach the required tool beans to the chat call.
+  - The model can then decide to call one tool, multiple tools, or none.
+- Step 5: Execute and return the final response
+  - After the tool executes, Spring AI sends tool results back to the LLM.
+  - The LLM produces a final user-facing answer using the tool outputs.
+- Operational best practices
+  - Security: never expose secrets in tool outputs; protect external API keys in config/vault.
+  - Validation: validate tool parameters (ex: reject invalid timezone IDs or empty topics).
+  - Error handling: return user-safe messages for failures (timeouts, API limits).
+  - Observability: log tool invocation, duration, and errors (with redaction).
+  - Testing: unit test tool logic; integration test tool calling through the chat endpoint.
+
+## Real time examples: Current Date/Time and Real-Time News Fetching
+
+- Date/Time tool concept
+  - Provides “now” as a reliable value from the server/runtime.
+  - Supports:
+    - A default current date-time
+    - A timezone-based current date-time when the user specifies a timezone
+- News tool concept
+  - Retrieves current headlines for a given topic using an external news API.
+  - Demonstrates tool calling for:
+    - Live, frequently changing information
+    - External integrations via HTTP clients/services
+- Code Implementation
+```java
+import org.springframework.ai.tool.annotation.Tool;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.web.client.RestTemplate;
+
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+
+// To get the current date time
+
+@Component
+public class DateTimeTool {
+
+    @Tool(description = "Get current date and time for user's timezone")
+    public String getCurrentDateAndTime() {
+        return ZonedDateTime.now().toString();
+    }
+
+    @Tool(description = "Get current date and time for user's timezone")
+    public String getCurrentDateAndTimeZonedTime(String timezone) {
+        return ZonedDateTime.now(ZoneId.of(timezone)).toString();
+    }
+}
+
+// News Tool to fetch real time news
+
+@Component
+class NewsTool {
+
+    @Autowired
+    private RestTemplate template;
+
+    @Tool(description = "Get the current headlines for the given topic")
+    public String getNewsHeadlines(String topic) {
+        String apiKey = "<YOUR_API_KEY>";
+        String url = "<BASE_URL>" + topic + "&apikey=" + apiKey;
+        return template.getForObject(url, String.class);
+    }
+}
+```

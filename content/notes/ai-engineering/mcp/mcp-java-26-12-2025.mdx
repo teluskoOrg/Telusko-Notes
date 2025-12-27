@@ -1,5 +1,5 @@
 ---
-title : MCP Server - Java
+title : MCP Server in Spring AI
 ---
 
 ### What is MCP Server?
@@ -14,6 +14,7 @@ title : MCP Server - Java
 - MCP Server C represents a remote server (e.g., Sentry) and can be connected by multiple clients at the same time  
 - The MCP Host can talk to many servers in parallel by creating multiple MCP clients, one per connection  
 ![MCP Fig](/images/ai-engineering/mcp/architecture-mcp1.png)
+    - Reference from: [MCP official docs](https://modelcontextprotocol.io/docs/learn/architecture)
 
 ### Why do we need MCP Server?
 - It separates context and tool logic from the AI application, improving modularity and scalability  
@@ -102,7 +103,7 @@ public class McpServerConfig {
 }
 ```
 - Step 5: In the MCP Server project, configure the server port so the MCP Client can connect to it locally
-```json
+```properties
 spring.application.name=mcpServer
 server.port=8282
 ```
@@ -136,13 +137,13 @@ public class MCPController {
 }
 ```
 - Step 7: In the MCP Client project, configure OpenAI API key and connect to MCP Server using SSE connection URL
-```json
+```properties
 spring.application.name=mcp_demo
 spring.ai.openai.api-key=<your-api-key>
 spring.ai.mcp.client.sse.connections.spring-ai-mcp.url=http://localhost:8282
 ```
 - Step 8: Use SSE-based connection for local communication where MCP Client subscribes to server tool publishing over HTTP streaming
-```json
+```properties
 spring.ai.mcp.client.sse.connections.spring-ai-mcp.url=http://localhost:8282
 ```
 ### Key Points to Know

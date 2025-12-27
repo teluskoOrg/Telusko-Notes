@@ -1,0 +1,87 @@
+---
+title: Langchain Tool Calling
+---
+
+## What is Tool Calling?
+- Tool calling is a pattern where the LLM requests your Python functions \(tools\) to run, instead of guessing an answer.
+- A tool in LangChain is a callable with metadata.
+    -  Name + description help the model choose the right tool.
+    - Input schema \(args\) tells the model what parameters to send.
+- The LLM returns a tool call request \(tool name + arguments\); your app executes the tool and sends the result back to the LLM.
+- This turns a chatbot into an assistant that can safely use real systems \(time, search, APIs, databases\).
+
+## Why we need Tool Calling?
+- Access to real-time data
+    - LLMs may not know "right now" facts such as current date/time or live information.
+- Accuracy and reduced hallucinations
+    - Instead of generating uncertain text, the assistant can fetch authoritative outputs from tools.
+- Business logic and system integration
+    - Your existing Python services/APIs can be reused through tools \(validation, workflows, rules\).
+- Controlled and auditable behavior
+    - Your code decides what tools are allowed and can log tool usage for monitoring.
+- Better user experience
+    - Users get answers grounded in actual tool outputs rather than generic responses.
+
+## Core Components in the Code
+- Environment setup
+    - load_dotenv\(\) loads API keys \(e.g., OpenAI key\) from a .env file into environment variables.
+- Tool definition
+    - @tool\("get_current_date_time"\) wraps a Python function into a LangChain tool.
+    - The docstring \("Get the current date and time"\) becomes part of the tool description for the model.
+- Messages \(chat history\)
+    - HumanMessage\(content=query\) stores the user query.
+    - The assistant response is appended back to messages to keep conversation state.
+- LLM with tools
+    - ChatOpenAI\(model="gpt-4o"\) is the chat model client.
+    - llm.bind_tools\(\[...\]\) attaches tool schemas so the model can request them via tool_calls.
+- Tool execution and ToolMessage
+    - `ai_msg.tool_calls` contains the model’s requested tool calls.
+    - ToolMessage\(content=tool_output, tool_call_id=...\) links a tool result to the tool call that requested it.
+
+## How to Implement Tool Calling
+- Create a tool function and decorate it with @tool.
+- Create a messages list and add the initial HumanMessage.
+- Bind the tool\(s\) to the LLM using llm.bind_tools\(\[tool\]\).
+- Invoke the model to get an AI message.
+    - `ai_msg = llm_with_tools.invoke(messages)`
+- If the model asks for a tool call:
+    - Read `ai_msg.tool_calls[0]["name"]` to identify which tool was requested.
+    - Execute the tool and capture its output.
+    - Append ToolMessage\(content=output, tool_call_id=tool_call_id\) to messages.
+    - Invoke the model again so it can produce the final user-facing answer using the tool result.
+
+## Example 1: Current Date/Time Tool
+- Tool behavior
+    - get_current_date_time\(\) returns server/runtime time using datetime.now\(\).strftime\("%Y-%m-%d %H:%M:%S"\).
+- User query used
+    - Query: "What is the current date and time?"
+- Expected tool calling sequence
+    - Model sees it needs the current time -> emits a tool call to get_current_date_time.
+    - Application runs get_current_date_time and sends the result back as ToolMessage.
+    - Model replies with a final natural-language answer grounded in the tool output.
+
+## How to Implement Tool Calling with Multi-tool
+- Bind multiple tools
+    - `tools = [get_current_date_time, DuckDuckGoSearchRun()]`
+    - `llm_with_tools = llm.bind_tools(tools)`
+- Loop until no tool_calls
+    - Start with messages = \[HumanMessage\(content=query\)\].
+    - Invoke the model and append ai_msg to messages.
+    - If `ai_msg.tool_calls` is empty -> return `ai_msg.content` \(final answer\).
+    - Otherwise, for each tool call: find the matching tool by name, invoke it with args, and append a ToolMessage.
+    - Repeat so the model can call multiple tools if needed \(chained reasoning + tool usage\).
+
+## Example 2: Web Search Tool \(DuckDuckGoSearchRun\)
+- Purpose
+    - Demonstrates tool calling for live, frequently changing information using a search tool.
+- How the tool is used
+    - DuckDuckGoSearchRun\(\) acts as a callable tool that accepts a query string and returns search results text.
+- Query
+    - Example: "current time in the country where Messi visited in Dec 2025"
+    - The model may first use web search to identify the country, then respond with the time \(or call another tool if available\).
+
+## Notes on Message Flow and ToolMessage
+- Always append the AI message to messages before handling tool calls, so the conversation history is complete.
+- Each tool result must include the correct tool_call_id from the corresponding tool call request.
+- After adding ToolMessage\(s\), invoke the model again; the tool output is not the final answer by itself \(the LLM formats it for the user\).
+- The while-loop approach supports multiple tool calls in one user query \(e.g., search then compute/format\).

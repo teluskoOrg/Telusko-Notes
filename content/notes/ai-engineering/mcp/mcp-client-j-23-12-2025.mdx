@@ -1,0 +1,80 @@
+---
+title: MCP Client in Spring AI
+---
+
+## What is MCP?
+- MCP \(Model Context Protocol\) is an open protocol that allows AI models to interact with external tools, systems, and resources in a standardized way.
+- It defines how models discover, invoke, and exchange structured data with tools instead of relying on text-based guessing.
+- MCP enables AI applications to safely access real-world capabilities such as files, APIs, and services through controlled interfaces.
+
+## What is MCP Client?
+- An MCP Client is an application-side component that connects an AI model to one or more MCP servers.
+- It manages tool discovery, request formatting, execution flow, and response handling for tool calls.
+- In Spring AI, the MCP Client bridges the ChatClient and external MCP servers using standardized configuration.
+
+## Why Do We Need MCPs?
+- MCPs enable AI models to access real-time and environment-specific data that static models cannot know.
+- They reduce hallucinations by forcing the model to rely on authoritative system outputs.
+- They allow secure and controlled exposure of backend capabilities to AI systems.
+- They standardize tool integration across languages, frameworks, and execution environments.
+
+## How to Build MCP Client Locally?
+- **Step 1:** Run MCP servers locally using npx so you can use MCP tools without manually installing server packages.
+- **Step 2:** Install Node.js in the system because MCP reference servers are distributed as Node-based packages.
+- **Step 3:** Create a Spring Boot project and add Spring AI \+ Spring MCP Client dependencies to make your application act as the MCP Client.
+- **Step 4:** Create a simple controller endpoint that accepts user questions and forwards them to Spring AI’s ChatClient.
+
+```java
+package com.telusko.mcp_demo;
+
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.tool.ToolCallbackProvider;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api")
+public class MCPController {
+
+    private ChatClient chatClient;
+
+    public MCPController(ChatClient.Builder chatClientBuilder, ToolCallbackProvider toolCallbackProvider) {
+        this.chatClient = chatClientBuilder
+                .defaultToolCallbacks(toolCallbackProvider)
+                .build();
+    }
+
+    @GetMapping("/chat")
+    public String getAnswer(@RequestParam String question) {
+        return chatClient.prompt(question).call().content();
+    }
+}
+```
+- **Step 5:** Configure ChatClient with ToolCallbackProvider so the model can access MCP tools through registered callbacks.
+- **Step 6:** Add an MCP servers JSON configuration file inside the resources folder so Spring AI can discover which MCP servers to run.
+
+```json
+// In resources folder add with file-name mcp-servers.json
+{
+  "mcpServers": {
+    "filesystem": {
+      "command": "npx.cmd",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "C:\\Users\\navin\\OneDrive\\Desktop\\mcp_folder"
+      ]
+    }
+  }
+}
+```
+- **Step 7:** Set the MCP client servers-configuration property to point to the JSON file so the MCP client loads servers at startup.
+```properties
+// In Properties file add the below properties
+spring.ai.openai.api-key=your-api-key
+spring.ai.mcp.client.stdio.servers-configuration=classpath:mcp-servers.json
+```
+- **Step 8:** For Windows, use `npx.cmd` in the MCP server command because Windows resolves executables through `.cmd`.
+- **Step 9:** For macOS/Linux, use `npx` directly because no `.cmd` suffix is required in Unix-based systems.

@@ -1,0 +1,98 @@
+---
+title: Spring AI RAG
+---
+
+## What is RAG?
+- RAG stands for Retrieval Augmented Generation.
+- It is a technique in Generative AI that combines a Large Language Model \(LLM\) with external knowledge sources.
+- The core idea is to retrieve relevant context from your own data and augment the prompt before sending it to the LLM.
+- RAG allows the model to answer questions based on specific documents or datasets, such as e-commerce product details.
+- Conceptually, RAG can be seen as:
+  - Prompt + Retrieved Context → Better Generation.
+
+## Why Do We Need RAG?
+- Outdated Knowledge in LLMs
+  - LLMs are trained on fixed training data, which may be years old.
+  - They cannot natively access the latest or frequently changing information.
+- Hallucination Problems
+  - When an LLM does not know the correct answer, it may produce confident but incorrect or imaginary responses.
+  - This reduces trustworthiness when used in real applications.
+- Custom / Private Data Limitation
+  - By default, LLMs do not know anything about your internal files, such as product cata-logs or company documents.
+  - Example: A chatbot cannot answer from a company’s e-commerce product file unless that data is supplied as context.
+- Need for Domain-Specific, Data-Driven Responses
+  - Many applications, like product Q&A, support bots, and knowledge assistants, must answer strictly from given documents.
+  - RAG ensures responses stay aligned with your domain data, such as e￾commerce product descriptions.
+- Comparison with Other Approaches
+  - Fine-tuning the LLM:
+    - Involves retraining the model with your data.
+    - Can be expensive, time-consuming, and may still not guarantee up-to￾date knowledge.
+  - Sending the Entire Data for Every Query:
+    - Passing all documents to the LLM for every request is inefficient and costly.
+    - Token limits and latency become major issues.
+  - RAG as the Efficient Way:
+    - Only relevant chunks are retrieved and attached to the query.
+    - It is more efficient, scalable, and cost-effective than sending all data or relying solely on fine-tuning.
+
+## How RAG Works?
+- User Prompt
+  - A user sends a query, for example: asking for details about a specific e￾commerce product like an art kit for kids.
+- Document Chunking and Embeddings
+  - Source data such as PDFs, documents, or text files is split into smaller chunks.
+  - Each chunk is converted into an embedding, which is a numerical vector representing its meaning.
+  - These embeddings are stored in a Vector Store / Vector Database.
+- Retrieving Relevant Chunks
+  - The user query is also converted to an embedding.
+  - A similarity search is performed in the vector store to find the most relevant chunks.
+- Augmenting the Prompt
+  - The retrieved chunks are combined with the original query.
+  - This creates an augmented prompt that contains both the user’s question and the relevant document context.
+- Generation by the LLM
+  - The augmented prompt is sent to the LLM.
+  - The model generates a response that is grounded in the retrieved context, rather than relying only on its internal training data.
+
+## Comparison with Other Approaches in Implementation
+- Fine-Tuning the LLM
+  - Requires retraining on e-commerce product data.
+  - Can be costly and less flexible when data changes frequently.
+- Sending Entire Data to the LLM for Every Query
+  - Involves sending large amounts of product text with every question.
+  - Causes high token usage, slower responses, and scalability issues.
+- RAG as the Efficient Implementation Strategy
+  - Uses a vector store to retrieve only relevant chunks.
+  - Keeps token usage low and responses fast and focused.
+  - Supports evolving product data without needing to retrain the model.
+
+## Implementation for RAG in Spring AI:
+
+```java
+@GetMapping("/api/ask/{query}")
+public String productInfo(@PathVariable String query) {
+
+    String template = """
+        {query}
+        context information is below
+        {question_answer_context}
+        Given the context information and no prior knowledge, answer the query with
+        name and price and category and description.
+
+        Follow these rules:
+        1. If the answer is not in the context, just say that you don't know.
+        2. Avoid statements like "Based on the context..." or "The provided information...".
+        """;
+
+    PromptTemplate promptTemplate = PromptTemplate.builder()
+            .template(template)
+            .build();
+
+    return chatClient
+            .prompt(query)
+            .advisors(
+                    QuestionAnswerAdvisor.builder(vectorStore)
+                            .promptTemplate(promptTemplate)
+                            .build()
+            )
+            .call()
+            .content();
+}
+```
