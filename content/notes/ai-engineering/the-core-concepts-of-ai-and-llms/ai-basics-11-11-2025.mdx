@@ -1,0 +1,87 @@
+---
+title: Introduction to AI, ML, and DL
+---
+
+### AI (Artificial Intelligence)
+- AI is the field of making computers behave in ways that we consider **smart** or **intelligent**.  
+- It focuses on enabling machines to perform tasks such as **decision-making**, **problem-solving**, and **understanding human language**.
+
+### ML (Machine Learning)
+- Machine Learning is a **subset of AI** that learns patterns directly from data instead of being explicitly programmed with fixed rules.  
+- ML models are trained on data so they can make **predictions or decisions** on new, unseen data.
+
+### DL (Deep Learning)
+- Deep Learning is a **subset of ML** that uses neural networks with multiple layers.  
+- These layers include an **input layer**, **hidden layers**, and an **output layer**.  
+- DL is especially effective for complex data such as **images**, **audio**, and **natural language**, as it automatically learns useful features from raw data.
+
+---
+
+## Deep Learning Structure and Training
+
+### Layers (Input, Hidden, Output)
+- The **input layer** takes raw data into the neural network.  
+- **Hidden layers** perform the main computations and learn features from the data.  
+- The **output layer** generates the final prediction or result.
+
+### Forward Pass
+- A forward pass sends input data from the input layer through the hidden layers to the output layer.  
+- At each layer, calculations are performed using current **weights** and **biases**.  
+- The value produced at the output layer is the model’s prediction.
+
+### Loss Function
+- The loss function measures how far the model’s prediction is from the correct answer.  
+- A **higher loss** indicates poor predictions, while a **lower loss** indicates better predictions.  
+- Training aims to **minimize the loss**.
+
+### Backpropagation
+- Backpropagation uses the loss value to update the model’s parameters.  
+- The error is propagated backward from the output layer through the hidden layers.  
+- Parameters are adjusted so that the loss becomes smaller in future predictions.
+
+### Parameters (Weights and Biases)
+- **Weights** determine how strongly one neuron influences another.  
+- **Biases** are additional values added to neurons to shift outputs.  
+- More parameters allow better tuning, and with sufficient data, this can improve model performance.
+
+---
+
+## Transformers, GPT, and Types of LLMs
+
+### Transformers and GPT
+- Transformers are deep learning models designed to process and generate **sequential data** such as text.  
+- GPT is a transformer-based model specialized for language tasks.  
+- GPT models are known for generating **human-like text**.
+
+### LLMs and Their Types
+- Large Language Models (LLMs) work with language at a large scale.  
+- They are commonly built using **transformer architectures**, such as GPT.  
+- Two important types of LLMs are **masked LLMs** and **autoregressive LLMs**.
+
+### Masked vs Autoregressive LLMs
+- **Masked LLMs** predict missing words within a sentence.  
+  - Example: *“my fav __ is blue.”*  
+- **Autoregressive LLMs** predict the next word based on previous words.  
+  - Example: *“my fav color is __.”*
+
+---
+
+## Tokens and Vocabulary
+
+### Tokens
+- Tokens are the basic units of text processed by language models.  
+- Words or parts of words can be tokens (for example, “cooking”).  
+- A larger vocabulary increases model size, while a smaller vocabulary reduces it.  
+- On average, **1 token ≈ ¾ of a word**.
+
+---
+
+## Ways to Connect with LLMs
+
+### Using an API
+- LLMs can be accessed through an **API**.  
+- Text is sent to the model, and a response is returned.
+
+### Running Locally with Ollama
+- Models can also be run locally using **Ollama**.  
+- This allows working with LLMs directly on your own machine.

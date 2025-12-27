@@ -1,0 +1,10 @@
+{
+    "root":false,
+    "pages":[
+        "ai-basics-11-11-2025.mdx",
+        "first-code-13-11-2025.mdx",
+        "explore-sdks-java-17-11-2025.mdx",
+        "explore-sdks-python-17-11-2025.mdx",
+        "embeddings-and-vector-18-11-2025.mdx"
+    ]
+}

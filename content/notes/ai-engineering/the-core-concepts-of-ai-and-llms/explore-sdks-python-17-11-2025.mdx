@@ -1,0 +1,86 @@
+---
+title: Exploring SDKs through Python
+---
+
+### Calling Google Gemini with google.genai
+
+- The code imports genai from google and creates a genai.Client() instance.
+- load_dotenv() is called before creating the client to load configuration from environment variables.
+- client.models.generate_content() is used with model="gemini-2.5-flash" and the movie prompt as contents.
+- The response text from Gemini is printed to the console using print(response.text).
+
+Code Implementation:
+```python
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+
+client = genai.Client()
+
+response = client.models.generate_content(
+    model="gemini-2.5-flash",
+    contents="Suggest one good movie for software engineers"
+)
+
+print(response.text)
+```
+
+### Calling Local Models with Ollama Chat API
+
+- The code imports chat and ChatResponse from the ollama package.
+- The chat() function is called with model='mistral' and a messages list containing the user movie prompt.
+- The returned value is stored in a ChatResponse object referenced by the variable response.
+- The model output is printed twice using response['message']['content'] and response.message.content.
+
+Code Implementation:
+```python
+from ollama import chat
+from ollama import ChatResponse
+
+response: ChatResponse = chat(
+    model='mistral',
+    messages=[
+        {
+            'role': 'user',
+            'content': 'Suggest one good movie for software engineers',
+        },
+    ]
+)
+
+print(response['message']['content'])
+print(response.message.content)
+```
+
+### Calling OpenAI with the Python SDK
+
+- The code imports OpenAI from openai and calls load_dotenv() before creating client = OpenAI().
+- client.responses.create() is used with model="gpt-5-nano" and the same movie prompt passed in the input field.
+- The API call returns a response object that provides the generated text through response.output_text.
+- The generated movie name is displayed by printing response.output_text to the console.
+
+Code Implementation:
+```python
+from dotenv import load_dotenv
+from openai import OpenAI
+
+load_dotenv()
+
+client = OpenAI()
+
+response = client.responses.create(
+    model="gpt-5-nano",
+    input="Suggest one good movie for software engineers"
+)
+
+print(response.output_text)
+```
+
+### Common Pattern Across All
+
+- Each example first creates a client object specific to the provider before making any request.
+- All three code samples send the same simple English prompt asking for one suitable movie for software engineers.
+- The result from the model is stored in a variable named response.
+- The final step in each example is to print the response so the model output is visible in the terminal.
+
+

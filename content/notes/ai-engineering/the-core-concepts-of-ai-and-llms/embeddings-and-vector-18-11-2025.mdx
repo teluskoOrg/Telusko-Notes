@@ -1,0 +1,109 @@
+---
+title: Embedding and Vectors
+---
+
+## Lecture 05: Embedding and Vectors
+
+### What Are Embeddings
+- Embeddings represent text as numerical vectors.
+- They help computers understand meaning rather than exact words.
+- Used when searching without knowing exact keywords.
+- Essential for similarity search in LLM workflows.
+
+### What Are Vectors
+- Vectors are lists of numbers used to represent words.
+- Words with similar meanings have vectors close to each other.
+- Example values: RGB colours like dark red (139,0,0).
+- Word-to-vector conversion allows machines to compare meaning.
+
+### Need for Similarity Search
+- Example: searching for an employee when the exact key is unknown.
+- Exact match search fails without precise keywords.
+- Similarity search retrieves closest matches using embeddings.
+- LLMs rely on this mechanism to understand and retrieve context.
+
+### How LLMs Search
+- Example query: “suggest a phone under $500.”
+- Input is broken into tokens before processing.
+- Each token is converted into vectors for understanding.
+- LLMs generate output by comparing vector similarities.
+
+### Understanding Transformers
+- Transformers replaced RNN and CNN limitations.
+- RNNs were used for NLP and CNNs for image recognition.
+- Attention mechanism assigns weight to each word.
+- Transformer encoder-decoder predicts the next word based on probability.
+
+### Attention Mechanism
+- Each word is given importance through weights.
+- Example: “I was going to have my ______.”
+- Prediction is based on the probability of the next token.
+- Weights help the model focus on relevant words.
+
+### Embedding Vector Example (OpenAI API)
+- Embedding for “dog” can be requested via API.
+- The POST request format is shown below.
+- Model used: textembedding-3-large.
+- Dimensions can be reduced for simplicity (e.g., 2).
+- By sending the POST request to link you can get embedding for the words.
+---
+title: "Lecture 05: Embedding and Vectors"
+---
+
+## Lecture 05: Embedding and Vectors
+
+### What Are Embeddings
+- Embeddings represent text as numerical vectors.
+- They help computers understand meaning rather than exact words.
+- Used when searching without knowing exact keywords.
+- Essential for similarity search in LLM workflows.
+
+### What Are Vectors
+- Vectors are lists of numbers used to represent words.
+- Words with similar meanings have vectors close to each other.
+- Example values: RGB colours like dark red (139,0,0).
+- Word-to-vector conversion allows machines to compare meaning.
+
+### Need for Similarity Search
+- Example: searching for an employee when the exact key is unknown.
+- Exact match search fails without precise keywords.
+- Similarity search retrieves closest matches using embeddings.
+- LLMs rely on this mechanism to understand and retrieve context.
+
+### How LLMs Search
+- Example query: “suggest a phone under $500.”
+- Input is broken into tokens before processing.
+- Each token is converted into vectors for understanding.
+- LLMs generate output by comparing vector similarities.
+
+### Understanding Transformers
+- Transformers replaced RNN and CNN limitations.
+- RNNs were used for NLP and CNNs for image recognition.
+- Attention mechanism assigns weight to each word.
+- Transformer encoder-decoder predicts the next word based on probability.
+
+### Attention Mechanism
+- Each word is given importance through weights.
+- Example: “I was going to have my ______.”
+- Prediction is based on the probability of the next token.
+- Weights help the model focus on relevant words.
+
+### Embedding Vector Example (OpenAI API)
+- Embedding for “dog” can be requested via API.
+- The POST request format is shown below.
+- Model used: textembedding-3-large.
+- Dimensions can be reduced for simplicity (e.g., 2).
+- By sending the POST request to link you can get embedding for the words.
+
+### Steps for sending request to API
+- Use POST method to call the embeddings endpoint.
+- Add header → "Content-Type": "application/json".
+- Add header → "Authorization": "Bearer [YOUR_API_KEY]".
+- Send the JSON body with model and input text.
+```json
+{
+  "model": "text-embedding-3-large",
+  "input": "dog",
+  "dimensions": 2
+}
+```

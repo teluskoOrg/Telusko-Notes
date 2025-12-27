@@ -1,0 +1,167 @@
+---
+title: First Code
+---
+
+## Java Program Structure for OpenAI and Gemini
+
+- Both examples are standard Java classes inside the `com.telusko` package.
+- Each class contains a `main` method as the entry point.
+- The programs use `HttpClient`, `HttpRequest`, and `HttpResponse` from `java.net.http`.
+- The `main` method declares `throws IOException, InterruptedException` to handle HTTP call issues.
+- Each class focuses on calling one provider:
+  - OpenAI for OpenAI APIs
+  - Gemini for Gemini APIs
+
+---
+
+## Gemini Code
+```java
+package com.telusko;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+public class Gemini {
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+        String apiKey = System.getenv("GEMINI_API_KEY");
+        String uri = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+
+        String requestBody = """
+        {
+          "model": "gemini-2.5-flash",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a movie review expert"
+            },
+            {
+              "role": "user",
+              "content": "name one movie for software engineers apart from social network, just the name"
+            }
+          ]
+        }
+        """;
+
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + apiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(response.body());
+    }
+}
+```
+---
+
+## OpenAI Code
+```java
+package com.telusko;
+
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+
+public class OpenAI {
+
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+        String apiKey = System.getenv("OPENAI_API_KEY");
+        String uri = "https://api.openai.com/v1/chat/completions";
+
+        String requestBody = """
+        {
+          "model": "gpt-4o",
+          "messages": [
+            {
+              "role": "system",
+              "content": "You are a movie review expert"
+            },
+            {
+              "role": "user",
+              "content": "name one movie for software engineers apart from social network, just the name"
+            }
+          ]
+        }
+        """;
+
+        HttpClient client = HttpClient.newHttpClient();
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(uri))
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + apiKey)
+                .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                .build();
+
+        HttpResponse<String> response =
+                client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        System.out.println(response.body());
+    }
+}
+
+```
+
+---
+
+## Reading API Keys and Setting API Endpoints
+
+- OpenAI reads the API key using `System.getenv("OPENAI_API_KEY")`.
+- Gemini reads the API key using `System.getenv("GEMINI_API_KEY")`.
+- OpenAI API endpoint used:
+  [Open AI](https://api.openai.com/v1/chat/completions)
+- Gemini API endpoint used:
+  [Gemini AI](https://generativelanguage.googleapis.com/v1beta/openai/chat/completions)
+
+---
+
+## Defining the JSON Request Body
+
+- Both programs define the request body using Java text blocks (`""" ... """`).
+- OpenAI request sets the model as `"gpt-4o"`.
+- Gemini request sets the model as `"gemini-2.5-flash"`.
+- Both requests send the same `messages` array:
+  - A `system` role for instructions
+  - A `user` role asking for a movie name for software engineers
+
+---
+
+## Configuring the HTTP Request
+
+- An `HttpClient` instance is created using `HttpClient.newHttpClient()`.
+- The `HttpRequest` is built using `HttpRequest.newBuilder()`.
+- The URI is set using `URI.create(uri)`.
+- Both requests set the following headers:
+  - `Content-Type: application/json`
+  - `Authorization: Bearer <apiKey>`
+- The request body is attached using:
+  - `HttpRequest.BodyPublishers.ofString(requestBody)`
+- The HTTP method used is `POST`.
+
+---
+
+## Sending the Request and Handling the Response
+
+- The request is sent using:
+  - `client.send(request, HttpResponse.BodyHandlers.ofString())`
+- The response type is `HttpResponse<String>`.
+- The response body is printed using:
+  - `System.out.println(response.body())`
+- This prints the raw JSON response returned by OpenAI or Gemini for the given prompt.
+
+---
+

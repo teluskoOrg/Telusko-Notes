@@ -1,0 +1,182 @@
+---
+title: Exploring SDKs through Java
+---
+
+## GeminiSDKDemo – Calling Gemini Model
+
+• GeminiSDKDemo is a simple Java program that calls the Gemini model using the  
+com.google.genai.Client class.  
+
+• The code uses the model name "gemini-2.5-flash" and sends a text prompt asking for one  
+comedy movie with SRK, just the name.  
+
+• The response from the model is stored in a GenerateContentResponse object and printed using  
+response.text().  
+
+• Authentication for the Gemini client is provided via the GOOGLE_API_KEY environment  
+variable.  
+
+Code Implementation:
+
+```java
+package com.telusko;
+
+import com.google.genai.Client;
+import com.google.genai.types.GenerateContentResponse;
+
+public class GeminiSDKDemo {
+    public static void main(String[] args) {
+        Client client = Client.builder()
+                .apiKey(System.getenv("GOOGLE_API_KEY"))
+                .build();
+
+        GenerateContentResponse response =
+                client.models.generateContent(
+                        "gemini-2.5-flash",
+                        "name one comedy movie with SRK, just the name"
+                );
+
+        System.out.println(response.text());
+    }
+}
+```
+
+---
+
+## OllamaSDKDemo – Calling Local Mistral Model
+
+• OllamaSDKDemo is a Java program that connects to a local Ollama server running at  
+"http://localhost:11434/".  
+
+• It creates an OllamaAPI client with the host URL and prepares a prompt asking for one comedy  
+movie with Shah Rukh Khan, just the name.  
+
+• The code calls client.generate("mistral", prompt, false, false, options) using an Options object  
+from OptionsBuilder.  
+
+• The result is printed using result.getResponse(), and any OllamaBaseException, IOException,  
+or InterruptedException is caught and logged with e.printStackTrace()  
+
+Code Implementation:
+```java
+
+package com.telusko;
+
+import io.github.ollama4j.OllamaAPI;
+import io.github.ollama4j.exceptions.OllamaBaseException;
+import io.github.ollama4j.models.response.OllamaResult;
+import io.github.ollama4j.utils.Options;
+import io.github.ollama4j.utils.OptionsBuilder;
+
+import java.io.IOException;
+
+public class OllamaSDKDemo {
+    public static void main(String[] args) {
+
+        String host = "http://localhost:11434/";
+        OllamaAPI client = new OllamaAPI(host);
+
+        String prompt = "name one comedy movie with Shah Rukh Khan, just the name";
+
+        Options options = new OptionsBuilder().build();
+
+        try {
+            OllamaResult result = client.generate(
+                    "mistral",
+                    prompt,
+                    false,
+                    false,
+                    options
+            );
+
+            System.out.println(result.getResponse());
+
+        } catch (OllamaBaseException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+```
+---
+
+## OpenAISDKDemo – Calling OpenAI gpt-5 Model
+
+• OpenAISDKDemo is a Java program that uses OpenAIClient created via  
+OpenAIOkHttpClient.fromEnv() to talk to OpenAI.  
+
+• It builds ResponseCreateParams with an input prompt asking for one comedy movie with SRK,  
+just the name.  
+
+• The model name is set to "gpt-5" inside ResponseCreateParams.builder().model("gpt-5").  
+
+• The response is obtained using client.responses().create(params) and printed directly with  
+System.out.println(response).  
+
+Code Implementation:
+```java
+package com.telusko;
+
+import com.openai.client.OpenAIClient;
+import com.openai.client.okhttp.OpenAIOkHttpClient;
+import com.openai.models.responses.Response;
+import com.openai.models.responses.ResponseCreateParams;
+
+public class OpenAISDKDemo {
+    public static void main(String[] args) {
+
+        OpenAIClient client = OpenAIOkHttpClient.fromEnv();
+
+        ResponseCreateParams params =
+                ResponseCreateParams.builder()
+                        .input("name one comedy movie with SRK, just the name")
+                        .model("gpt-5")
+                        .build();
+
+        Response response = client.responses().create(params);
+
+        System.out.println(response);
+    }
+}
+```
+---
+
+## Dependencies in pom.xml  
+```xml
+<dependencies>
+
+    <!-- Dependency for OpenAI -->
+    <dependency>
+        <groupId>com.openai</groupId>
+        <artifactId>openai-java</artifactId>
+        <version>4.0.0</version>
+    </dependency>
+
+    <!-- Dependency for Gemini -->
+    <dependency>
+        <groupId>com.google.genai</groupId>
+        <artifactId>google-genai</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+
+    <!-- Dependency for Ollama -->
+    <dependency>
+        <groupId>io.github.ollama4j</groupId>
+        <artifactId>ollama4j</artifactId>
+        <version>1.1.0</version>
+    </dependency>
+
+</dependencies>
+```
+## Common Pattern Across All.
+
+• All three programs create a client object specific to the provider SDK: GeminiClient,  
+OllamaAPI, and OpenAIClient.  
+
+• In every case, the code sends the prompt to a model and prints the returned response to the  
+console.  
+
+• Configuration details such as environment variables (GOOGLE_API_KEY, OpenAI env) or  
+the localhost URL (http://localhost:11434/) are used to connect to each respective service.  
+
+---
