@@ -1,0 +1,215 @@
+---
+title : MCP Client and Server - Langchain
+---
+
+## MCP
+
+### What is MCP?
+- MCP (Model Context Protocol) is a standard way to let an LLM use external tools/services through a defined protocol.
+- It helps the model access capabilities outside the chat, like file operations or web search, via a consistent interface.
+
+### Why do we need MCP?
+- **Tool standardization:** One client can connect to multiple tool servers (filesystem, web search, internal tools) using a common protocol.
+- **Separation of concerns:** The LLM stays focused on reasoning, while real actions (read/write files, search web) are done by MCP tools.
+
+### What is MCP Server and MCP Client?
+- **MCP Server:** Hosts tools (functions) and exposes them via a transport like SSE or stdio.
+- **MCP Client:** Connects to one/more MCP servers, fetches available tools, and lets the LLM call them.
+
+## MCP_CLIENT
+
+### What the MCP client does? 
+- Connects to two MCP servers:
+  - filesystem server via stdio using npx @modelcontextprotocol/server-filesystem
+  - telusko server via SSE at http://localhost:8000/sse
+- Fetches all available tools using get_tools()
+- Binds tools to ChatOpenAI so the LLM can call them
+- Runs a loop:
+  - LLM responds
+  - If tool calls exist → execute tool → append ToolMessage
+  - Repeat until no tool calls
+### Implementation of Mcp-Client
+##### **Step 1:** Create project and install dependencies (mcp_server)
+- Create a folder named mcp_server
+- Run these commands in terminal:
+```python
+# Terminal commands (run inside mcp_server folder)
+# uv init
+# uv venv
+# activate virutal env
+# uv add fastmcp
+# uv add langchain_community
+# uv add ddgs
+```
+##### Step 2: Initialize FastMCP server and tools
+- FastMCP("TelsukoMCPServer") creates an MCP server instance
+- DuckDuckGoSearchRun() creates a ready-to-use search tool wrapper
+
+```python
+from fastmcp import FastMCP
+from langchain_community.tools import DuckDuckGoSearchRun
+
+mcp = FastMCP("TelsukoMCPServer")
+
+search_tool = DuckDuckGoSearchRun()
+```
+##### Step 3: Choose correct npx command for OS
+- On Windows, executable is usually npx.cmd
+- On macOS/Linux, it is npx
+- This avoids command not found issues across platforms
+
+```python
+import platform
+
+def npx_command():
+    return "npx" if platform.system() != "Windows" else "npx.cmd"
+```
+##### Step 4: Connect to MCP servers and fetch tools
+- MultiServerMCPClient connects to multiple MCP servers using a config map
+- filesystem uses stdio transport (runs a local process via npx)
+- telusko uses sse transport (connects to a running MCP server URL)
+- get_tools() fetches tool definitions from both servers
+
+```python
+from langchain_mcp_adapters.client import MultiServerMCPClient
+
+Client = MultiServerMCPClient({
+    "filesystem": {
+        "transport": "stdio",
+        "command": npx_command(),
+        "args": ["-y", "@modelcontextprotocol/server-filesystem", MCP_FOLDER]
+    },
+    "telusko": {
+        "transport": "sse",
+        "url": "http://localhost:8000/sse"
+    }
+})
+
+tools = await Client.get_tools()
+```
+##### Step 5: Bind tools to LLM and run tool-calling loop
+- ChatOpenAI(model="gpt-4o") creates the LLM
+- bind_tools(tools) enables tool calling
+- Messages used:
+  - SystemMessage sets role and constraints (filesystem operations limited to MCP_FOLDER)
+  - HumanMessage contains user query
+  - ToolMessage stores tool results (linked via tool_call_id)
+- Loop ends when AI response has no tool calls
+
+```python
+import asyncio
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import SystemMessage, HumanMessage, ToolMessage
+
+async def chat(query):
+    Client = MultiServerMCPClient({
+        "filesystem": {
+            "transport": "stdio",
+            "command": npx_command(),
+            "args": ["-y", "@modelcontextprotocol/server-filesystem", MCP_FOLDER]
+        },
+        "telusko": {
+            "transport": "sse",
+            "url": "http://localhost:8000/sse"
+        }
+    })
+
+    tools = await Client.get_tools()
+
+    lms = ChatOpenAI(model="gpt-4o")
+    llm_with_tools = lms.bind_tools(tools)
+
+    messages = []
+    messages.append(SystemMessage(content=f"You are an expret file system assistant. All file operations are in {MCP_FOLDER}"))
+    messages.append(HumanMessage(content=query))
+
+    while True:
+        ai_msg = llm_with_tools.invoke(messages)
+        messages.append(ai_msg)
+
+        if not ai_msg.tool_calls:
+            return ai_msg.content
+
+        for tc in ai_msg.tool_calls:
+            tool_name = tc["name"]
+            tool_args = tc["args"]
+            tool_fn = next(tool for tool in tools if tool.name == tool_name)
+
+            tool_result = await tool_fn.ainvoke(tool_args)
+            messages.append(ToolMessage(content=str(tool_result), tool_call_id=tc["id"]))
+```
+
+##### Running the client with a prompt
+- A sample prompt is passed to chat()
+- asyncio.run() executes the async function and prints the final response
+
+```python
+prompt = "Current time in the country where messi visited in Dec 2025"
+
+response = asyncio.run(chat(prompt))
+
+print(response)
+```
+
+## MCP_SERVER
+
+### What the MCP server does in this code
+- Creates a server named TelsukoMCPServer
+- Exposes two tools:
+  - get_current_date_time() → returns server date-time
+  - web_serach(query) → runs DuckDuckGo search using DuckDuckGoSearchRun
+- Runs server with SSE transport at http://localhost:8000/sse
+### Implementation of Mcp-Server
+##### Step 1: Create project and install dependencies (mcp_server)
+- Create a folder named mcp_server
+- Run these commands in terminal:
+```python
+# Terminal commands (run inside mcp_server folder)
+# uv init
+# uv venv
+# uv add fastmcp
+# uv add langchain_community
+# uv add ddgs
+```
+##### Step 2: Initialize FastMCP server and tools
+- FastMCP("TelsukoMCPServer") creates an MCP server instance
+- DuckDuckGoSearchRun() creates a ready-to-use search tool wrapper
+
+```python
+from fastmcp import FastMCP
+from langchain_community.tools import DuckDuckGoSearchRun
+
+mcp = FastMCP("TelsukoMCPServer")
+
+search_tool = DuckDuckGoSearchRun()
+```
+##### Step 3: Create a date-time tool using @mcp.tool()
+- @mcp.tool() registers a function as an MCP tool
+- Returns current server date-time in YYYY-MM-DD HH:MM:SS
+
+```python
+from datetime import datetime
+
+@mcp.tool()
+def get_current_date_time() -> str:
+    """Get the current date and time."""
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+```
+##### Step 4: Create a web search tool using DuckDuckGo
+- Tool takes query: str
+- Uses search_tool.run(query) to return search output as string
+
+```python
+@mcp.tool()
+def web_serach(query: str) -> str:
+    """Search the web using DuckDuckGo."""
+    return search_tool.run(query)
+```
+##### Step 5: Run the MCP server using SSE transport
+- transport="sse" starts server in SSE mode
+- Host and port define the URL the client connects to:
+  - http://localhost:8000/sse
+
+```python
+mcp.run(transport="sse", host="localhost", port=8000)
+```
