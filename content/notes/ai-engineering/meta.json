@@ -6,7 +6,8 @@
         "spring-ai",
         "langchain",
         "build-your-first-rag",
-        "mcp"
+        "mcp",
+        "langchain-ai-agents"
  
     ]
 }
