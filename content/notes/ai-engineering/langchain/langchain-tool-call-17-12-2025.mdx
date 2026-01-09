@@ -1,0 +1,98 @@
+---
+title: Langchain Tool Calling
+---
+
+### What is Tool Calling?
+
+- Tool calling means the LLM `(`or you manually`)` uses external functions/tools to get real-world data or perform actions.
+- A tool is typically a callable function that accepts input arguments and returns an output.
+- In LangChain, tools can be:
+  - Pre-built tools `(`example: DuckDuckGo search, YouTube search`)`
+  - Custom tools `(`your own Python function wrapped as a tool`)`
+
+### Tool Calling Key Points
+
+- **Tool = capability**: A tool is a reusable capability like search, date-time, calculator, etc.
+- **Input \u2192 Execute \u2192 Output**: You pass input to the tool, it runs, and returns a response.
+- **Manual calling**: You directly call `.invoke(...)` yourself `(`as shown in the code`)`.
+- **Agent-based calling**: An agent lets the LLM decide which tool to call and when.
+
+### MANUAL_TOOL_CALLS
+
+#### Using Prebuilt Tools
+- `DuckDuckGoSearchRun()` provides a web search tool (DuckDuckGo based).
+- `YouTubeSearchTool()` provides a YouTube search tool.
+- You create tool objects like:
+  - `search_tool = DuckDuckGoSearchRun()`
+  - `yt_tool = YouTubeSearchTool()`
+
+#### Manual Tool Execution with invoke()
+- **Step 1: Call a tool using `.invoke()`**
+  - Syntax: `tool.invoke("your query here")`
+
+- **Step 2: Run DuckDuckGo search**
+  - `search_tool.invoke("top news in cricket today")` runs a DuckDuckGo search query.
+
+- **Step 3: Run YouTube search**
+  - `yt_tool.invoke("Best java and python videos (from telusko)")` runs a YouTube search query.
+
+- **Step 4: Store results**
+  - Returned values are stored in:
+    - `response`
+    - `response1`
+#### Code implementation
+```python
+from langchain_community.tools import DuckDuckGoSearchRun
+from langchain_community.tools import YouTubeSearchTool
+
+search_tool = DuckDuckGoSearchRun()
+yt_tool = YouTubeSearchTool()
+
+response = search_tool.invoke("top news in cricket today")
+response1 = yt_tool.invoke("Best java and python videos (from telusko)")
+
+print(response1)
+print(yt_tool.name)
+print(yt_tool.description)
+print(yt_tool.args)
+```
+### CUSTOM_TOOL
+
+#### Why Create a Custom Tool?
+- Prebuilt tools cover common use cases (search, APIs, etc.), but you may need your own logic.
+- Custom tools allow you to expose your Python function as a LangChain tool.
+
+#### Creating a Custom Tool using `@tool`
+- **Step 1: Import**
+  - `from langchain_core.tools import tool`
+- **Step 2: Define a tool by decorating a function**
+  - `@tool("get_current_date_time")`
+- **Key point**
+  - The string inside `@tool(...)` becomes the **tool name**.
+#### Tool Function Logic
+- The function `get_current_date_time()`:
+  - Uses `datetime.now()` to fetch current date-time.
+  - Formats output using: `strftime("%Y-%m-%d %H:%M:%S")`
+- The docstring:
+  - `"""Get the current date and time"""`
+  - Acts as a short tool description.
+#### Calling a Custom Tool using `invoke()`
+- Custom tools are executed using `.invoke(...)` like prebuilt tools.
+- In the code:
+  - `result = get_current_date_time.invoke({})`
+- Key point:
+  - `{}` is passed because the tool function takes **no input arguments**.
+
+#### Code implementation 
+```python
+from langchain_core.tools import tool
+from datetime import datetime
+
+@tool("get_current_date_time")
+def get_current_date_time():
+    """Get the current date and time"""
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+result = get_current_date_time.invoke({})
+print(f"Current date and time: {result}")
+```
