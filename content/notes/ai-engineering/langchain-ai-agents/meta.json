@@ -2,6 +2,7 @@
     "root":false,
     "pages":[
         "langchain-ai-agents-5-1-2026.mdx",
-        "langgraph-12-01-2026.mdx"
+        "langgraph-12-01-2026.mdx",
+        "langgraph-13-01-2026.mdx"
     ]
 }
